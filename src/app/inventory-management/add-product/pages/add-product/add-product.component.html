@@ -1,0 +1,41 @@
+<div class="md:p-10">
+    <mat-card>
+
+        <mat-tab-group>
+            <mat-tab label="معلومات المنتج الحيوية">
+                <vex-vital-info *ngIf="childCategory" [childCategory]="childCategory" [variationTheme]="variationTheme" [isWithVatiations]="isWithVatiations" (vitalInfoChanged)="vitalInfoChangedHandler($event)" (attributeValuesChanged)="attributeValuesChangedHandler($event)"></vex-vital-info>
+            </mat-tab>
+            <mat-tab label="أشكال المنتج">
+                <vex-variation *ngIf="childCategory" [childCategory]="childCategory" (productListChanged)="ProductListChangedHandler($event)" (variationThemeChanged)="variationThemeChangedHandler($event)"></vex-variation>
+            </mat-tab>
+            <mat-tab *ngIf="isWithVatiations == false" label="عرض المنتج">
+                <vex-offer (offerChanged)="OfferChangedHandler($event)"></vex-offer>
+            </mat-tab>
+            <mat-tab label="صور المنتج">
+                <vex-images (imagesChanged)="imagesChangedHandler($event)" (mainImageChanged)="mainImageChangedHandler($event)"></vex-images>
+            </mat-tab>
+            <mat-tab label="وصف المنتج">
+                <vex-description *ngIf="childCategory" (descriptionChanged)="descriptionChangedHandler($event)"></vex-description>
+            </mat-tab>
+            <mat-tab label="خصائص المنتج">
+                <vex-specifications *ngIf="childCategory" (specListChanged)="specListChangedHandler($event)"></vex-specifications>
+            </mat-tab>
+            <mat-tab label="الكلمات الدالة">
+                <vex-keywords *ngIf="childCategory" (keywordsChanged)="keywordsChangedHandler($event)"></vex-keywords>
+            </mat-tab>
+        </mat-tab-group>
+        <div class="flex flex-row-reverse gap-4 mt-2">
+            <div class="basis-3/4">
+
+            </div>
+            <div class="basis-1/4">
+                <div class="flex flex-row gap-4">
+                    <button color="primary" mat-raised-button class="font-bold rounded">إلغاء</button>
+                    <button (click)="uploadFiles()" color="secondary" mat-raised-button class="font-bold rounded">حفظ المنتج</button>
+                </div>
+                <mat-spinner *ngIf="loading"></mat-spinner>
+            </div>
+        </div>
+    </mat-card>
+
+</div>

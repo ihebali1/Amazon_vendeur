@@ -1,0 +1,42 @@
+<div class="card p-10 bg-white shadow-sm border border-gray-200 rounded-lg">
+    <div class="grid grid-cols-7 gap-4">
+        <div>
+            <label>مصطلحات البحث</label>
+        </div>
+        <div class="col-span-6">
+            <div class="flex flex-row gap-4">
+                <mat-form-field class="example-form-field" appearance="outline">
+                    <mat-label></mat-label>
+                    <input matInput [(ngModel)]="productInfo.searchTerms" type="text">
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div>
+            <label>الكلمات الرئيسية البلاتينية</label>
+        </div>
+        <div class="col-span-6">
+            <div *ngFor="let keyword of productInfo.keyWords" class="flex flex-row gap-4">
+                <mat-form-field class="example-form-field" appearance="outline">
+                    <mat-label></mat-label>
+                    <input readonly matInput [(ngModel)]="keyword.value" type="text">
+                </mat-form-field>
+                <button (click)="removeKeyword(keyword.id)" style="font-size: 20px;" class=" text-sm font-bold rounded">-</button>
+            </div>
+            <div class="flex flex-row gap-4">
+                <mat-form-field class="example-form-field" appearance="outline">
+                    <mat-label></mat-label>
+                    <input matInput [(ngModel)]="newKeyword" type="text">
+                </mat-form-field>
+                <button (click)="addKeyword()" style="font-size: 20px;" class=" text-sm font-bold rounded">+</button>
+            </div>
+        </div>
+    </div>
+    <mat-divider class="my-2"></mat-divider>
+    <div class="basis-1/4">
+        <div class="flex flex-row gap-4">
+
+            <button (click)="updateKeywords()" color="primary" mat-raised-button class="font-bold rounded">تحديث</button>
+        </div>
+    </div>
+</div>

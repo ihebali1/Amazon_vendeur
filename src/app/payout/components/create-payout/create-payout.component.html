@@ -1,0 +1,10 @@
+<h1 mat-dialog-title>إضافة مقدار</h1>
+<mat-form-field [formGroup]="formPayout" appearance="outline">
+
+    <input matInput type="number" formControlName="amount">
+</mat-form-field>
+<div mat-dialog-actions>
+    <button mat-button mat-dialog-close (click)="onNoClick()">إلغاء</button>
+    <button mat-button mat-dialog-close cdkFocusInitial (click)="createPayout()">إضافة</button>
+    <mat-spinner *ngIf="loading"></mat-spinner>
+</div>

@@ -1,0 +1,209 @@
+<div class="container py-gutter ">
+    <div class="card overflow-hidden">
+        <div class="h-32 relative overflow-hidden">
+            <img class="w-full h-full object-cover" src="assets/img/demo/landscape.jpg">
+            <div class="absolute bg-contrast-black opacity-25 top-0 right-0 bottom-0 left-0 w-full h-full z-0"></div>
+
+        </div>
+
+    </div>
+
+    <div class="w-ful mx-auto bg-white p-16">
+
+
+        <div class="grid gap-6 mb-6 lg:grid-cols-2">
+            <div>
+                <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">تاريخ بدء</label>
+                <input readonly matInput [(ngModel)]="promotion.startDate" type="text" disabled>
+            </div>
+            <div>
+                <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">تاريخ الإنتهاء</label>
+                <input readonly matInput [(ngModel)]="promotion.endDate" type="text" disabled>
+            </div>
+            <div>
+                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">قيمة الخصم</label>
+                <input readonly matInput [(ngModel)]="promotion.discount" type="text" disabled>%
+            </div>
+            <div>
+                <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"> أدنى كمية شراء</label>
+                <input readonly matInput [(ngModel)]="promotion.minQuantity" type="text" disabled>
+            </div>
+            <div>
+                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">فئة</label>
+                <input readonly matInput [(ngModel)]="promotion.type" type="text" disabled>
+            </div>
+            <div>
+                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">تقييد الإستخدام</label>
+                <input readonly matInput [(ngModel)]="promotion.redemptionLimit" type="text" disabled>
+            </div>
+            <div>
+                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">الوصف</label>
+                <input readonly matInput [(ngModel)]="promotion.description" type="text" disabled>
+            </div>
+        </div>
+        <header class="px-5 py-4 border-b border-gray-100">
+            <h2 class="font-semibold text-gray-800">قائمةشروط </h2>
+        </header>
+        <table class="table-auto w-full">
+
+            <thead>
+                <tr class="bg-primary text-center">
+                    <th class="
+                    w-1/6
+                    min-w-[160px]
+                    text-lg
+                    font-semibold
+                    text-white
+                    py-4
+                    lg:py-7
+                    px-3
+                    lg:px-4
+                    border-l border-transparent
+                    ">
+                        خصم
+                    </th>
+                    <th class="
+                    w-1/6
+                    min-w-[160px]
+                    text-lg
+                    font-semibold
+                    text-white
+                    py-4
+                    lg:py-7
+                    px-3
+                    lg:px-4
+                    ">
+                        الكمية
+                    </th>
+
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let p of promotion.tier">
+                    <td class="
+                    text-center text-dark
+                    font-medium
+                    text-base
+                    py-5
+                    px-2
+                    bg-[#F3F6FF]
+                    border-b border-l border-[#E8E8E8]
+                    ">
+                        {{p.discount}}%
+                    </td>
+                    <td class="
+                    text-center text-dark
+                    font-medium
+                    text-base
+                    py-5
+                    px-2
+                    bg-white
+                    border-b border-[#E8E8E8]
+                    ">
+                        {{p.quantity}}
+                    </td>
+
+                </tr>
+
+            </tbody>
+        </table>
+
+        <header class="px-5 py-4 border-b border-gray-100">
+            <h2 class="font-semibold text-gray-800">قائمة منتجات المنخفضة فيها </h2>
+        </header>
+        <table class="table-auto w-full">
+
+            <thead>
+                <tr class="bg-primary text-center">
+                    <th class="
+                        w-1/6
+                        min-w-[160px]
+                        text-lg
+                        font-semibold
+                        text-white
+                        py-4
+                        lg:py-7
+                        px-3
+                        lg:px-4
+                        border-l border-transparent
+                        ">
+                        اسم المنتج
+                    </th>
+                    <th class="
+                    w-1/6
+                    min-w-[160px]
+                    text-lg
+                    font-semibold
+                    text-white
+                    py-4
+                    lg:py-7
+                    px-3
+                    lg:px-4
+                    border-l border-transparent
+                    ">
+                        معرف المنتج
+                    </th>
+                    <th class="
+                    w-1/6
+                    min-w-[160px]
+                    text-lg
+                    font-semibold
+                    text-white
+                    py-4
+                    lg:py-7
+                    px-3
+                    lg:px-4
+                    ">
+                        نوع المعرف </th>
+
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let app of promotion.appliesTo">
+                    <td class="
+                        text-center text-dark
+                        font-medium
+                        text-base
+                        py-5
+                        px-2
+                        bg-[#F3F6FF]
+                        border-b border-l border-[#E8E8E8]
+                        ">
+                        {{app.name}}
+                    </td>
+                    <td class="
+                    text-center text-dark
+                    font-medium
+                    text-base
+                    py-5
+                    px-2
+                    bg-[#F3F6FF]
+                    border-b border-l border-[#E8E8E8]
+                    ">
+                        {{app.productId}}
+                    </td>
+                    <td class="
+                    text-center text-dark
+                    font-medium
+                    text-base
+                    py-5
+                    px-2
+                    bg-white
+                    border-b border-[#E8E8E8]
+                    ">
+                        {{app.productIdType}}
+                    </td>
+
+                </tr>
+
+            </tbody>
+        </table>
+
+
+    </div>
+
+
+    <router-outlet class="p-4"></router-outlet>
+</div>

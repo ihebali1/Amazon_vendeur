@@ -1,0 +1,63 @@
+<div class="md:p-10">
+  <form [formGroup]="offerForm">
+    <div>
+      <div>
+        <label class="font-bold">سعر المنتج</label>
+      </div>
+      <div class="col-span-6">
+        <div class="flex flex-row gap-4">
+          <mat-form-field class="example-form-field" appearance="outline">
+              <mat-label>السعر</mat-label>
+              
+              <input formControlName="price" (input)="onInputChange($event.target.value)"  matInput type="number" placeholder="25">
+              <span matPrefix> دينار &nbsp;</span>
+            </mat-form-field>
+       
+        </div>
+      </div>
+
+      <div>
+        <label class="font-bold">كمية المنتج</label>
+      </div>
+      <div class="col-span-6">
+        <div class="flex flex-row gap-4">
+          <mat-form-field class="example-form-field" appearance="outline">
+              <mat-label>الكمية</mat-label>
+              <input formControlName="quantity"  (input)="onInputChange($event.target.value)" matInput type="number" min="0" placeholder="100">
+            </mat-form-field>
+        </div>
+      </div>
+
+      <div>
+        <label class="font-bold">حالة المنتج</label>
+      </div>
+      <div class="col-span-6">
+        <div class="flex flex-row gap-4">
+          <mat-form-field class="example-form-field" appearance="outline">
+              <mat-label></mat-label>
+              <mat-select formControlName="condition" (selectionChange)="onChange($event.value)" >
+                <mat-option value="USED_GOOD">
+                  مستعمل - جيد
+                </mat-option>
+                <mat-option value="USER_LIKE_NEW">
+                  مستعملة - كالجديد
+                </mat-option>
+                <mat-option value="NEW">
+                  جديد
+                </mat-option>
+                <mat-option value="USED_VER_GOOD">
+                  مستعمل - جيد جدا
+                </mat-option>
+                <mat-option value="USED_ACCEPTABLE">
+                  مستخدم - مقبول
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+      </div>
+      </div>
+    </div>
+
+  </form>
+
+
+</div>

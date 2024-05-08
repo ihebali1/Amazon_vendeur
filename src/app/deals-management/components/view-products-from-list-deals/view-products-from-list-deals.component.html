@@ -1,0 +1,131 @@
+<table @stagger [dataSource]="dataSource" class="w-full" mat-table matSort>
+  <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+  <!-- Contact Column -->
+  <ng-container matColumnDef="contact">
+    <th *matHeaderCellDef mat-header-cell mat-sort-header></th>
+    <td *matCellDef="let row" mat-cell>
+      <div class="flex">
+        <a
+          (click)="$event.stopPropagation()"
+          class="w-8 h-8 leading-none flex items-center justify-center hover:bg-hover text-primary bg-primary-light"
+          mat-icon-button
+        >
+        </a>
+
+        <a
+          (click)="$event.stopPropagation()"
+          class="w-8 h-8 leading-none flex items-center justify-center ml-1 hover:bg-hover text-teal bg-teal-light"
+          mat-icon-button
+        >
+        </a>
+
+        <a
+          (click)="$event.stopPropagation()"
+          class="w-8 h-8 leading-none flex items-center justify-center ml-1 hover:bg-hover text-green bg-green-light"
+          mat-icon-button
+        >
+        </a>
+      </div>
+    </td>
+  </ng-container>
+
+  <!-- Label Column -->
+  <ng-container matColumnDef="labels">
+    <th *matHeaderCellDef class="uppercase" mat-header-cell mat-sort-header>
+      Labels
+    </th>
+    <td *matCellDef="let row" mat-cell>
+      <div
+        (click)="$event.stopPropagation()"
+        fxLayoutAlign="start center"
+        fxLayoutGap="4px"
+      >
+        <div
+          *ngFor="let label of row.labels"
+          [ngClass]="[label.textClass, label.bgClass]"
+          class="rounded px-2 py-1 font-medium text-xs"
+          fxFlex="none"
+        >
+          {{ label.text }}
+        </div>
+        <div
+          (click)="labelSelect.open()"
+          class="text-secondary bg-base text-hint cursor-pointer hover:bg-hover"
+          fxFlex="none"
+          fxLayout="row"
+          fxLayoutAlign="center center"
+        ></div>
+        <mat-select
+          #labelSelect="matSelect"
+          (selectionChange)="onLabelChange($event, row)"
+          [value]="row.labels"
+          class="invisible w-0 h-0 text-sm"
+          fxFlex="0 1 0px"
+          multiple
+        >
+          <mat-option *ngFor="let label of labels" [value]="label">
+            <div
+              [ngClass]="label.previewClass"
+              class="h-6 w-6 align-middle ltr:mr-2 rtl:ml-2 rounded inline-block"
+            ></div>
+            <span>{{ label.text }}</span>
+          </mat-option>
+        </mat-select>
+      </div>
+    </td>
+  </ng-container>
+
+  <!-- Text Column -->
+  <ng-container *ngFor="let column of columns">
+    <ng-container
+      *ngIf="column.type === 'text'"
+      [matColumnDef]="column.property"
+    >
+      <th *matHeaderCellDef mat-header-cell mat-sort-header>
+        {{ column.label }}
+      </th>
+      <td *matCellDef="let row" [ngClass]="column.cssClasses" mat-cell>
+        <p *ngIf="column.property != 'name'">
+          {{ row[column.property] }}
+        </p>
+        <p *ngIf="column.property == 'name'">
+          <label *ngIf="row.product.parentListing == null">
+            {{ row.product.name }}
+          </label>
+          <label *ngIf="row.product.parentListing != null">
+            {{ row.product.parentListing.name }}
+          </label>
+        </p>
+      </td>
+    </ng-container>
+    <ng-container
+      *ngIf="column.type === 'Date'"
+      [matColumnDef]="column.property"
+    >
+      <th *matHeaderCellDef mat-header-cell mat-sort-header>
+        {{ column.label }}
+      </th>
+      <td *matCellDef="let row" [ngClass]="column.cssClasses" mat-cell>
+        {{ row[column.property] | date }}
+      </td>
+    </ng-container>
+    <ng-container *ngIf="column.type === 'image'" [matColumnDef]="column.property">
+        <th *matHeaderCellDef mat-header-cell mat-sort-header> {{ column.label }}</th>
+        <td *matCellDef="let row" [ngClass]="column.cssClasses" mat-cell>
+          <img *ngIf="row.product.parentListing == null" [src]="server + row.product.primaryImage.public_url" class="avatar h-9 w-9 align-middle my-2">
+          <img *ngIf="row.product.parentListing != null" [src]="server + row.product.parentListing.primaryImage.public_url" class="avatar h-9 w-9 align-middle my-2">
+        </td>
+      </ng-container>
+  </ng-container>
+
+  <tr *matHeaderRowDef="visibleColumns" mat-header-row></tr>
+  <tr
+    *matRowDef="let row; columns: visibleColumns"
+    @fadeInUp
+    class="hover:bg-hover trans-ease-out cursor-pointer"
+    mat-row
+  ></tr>
+</table>
+<button (click)="confirm()">أغلق</button> &nbsp;&nbsp;&nbsp;

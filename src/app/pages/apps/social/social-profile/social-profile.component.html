@@ -1,0 +1,280 @@
+<div class="mt-6 flex flex-col md:flex-row md:items-start">
+    <div class="flex-auto">
+        <div class="card">
+            <form [formGroup]="formBasicInfo">
+                <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px">
+                    <div @fadeInUp class="card" fxFlex="auto">
+                        <div class="px-6 py-4 border-b" fxLayout="row" fxLayoutAlign="start center">
+                            <h2 class="title m-0 font-bold">
+                                معلومات شخصية
+                            </h2>
+                        </div>
+
+                        <div class="px-6 py-4" fxLayout="column">
+
+
+                            <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="16px" fxLayoutGap.lt-sm="0">
+                                <mat-form-field fxFlex="auto" appearance="outline">
+                                    <mat-label>الاسم الشخصي</mat-label>
+                                    <input formControlName="firstName" matInput required>
+                                </mat-form-field>
+                                <mat-form-field fxFlex="auto" appearance="outline">
+                                    <mat-label>اللقب</mat-label>
+                                    <input formControlName="lastName" matInput required>
+                                </mat-form-field>
+                            </div>
+
+                            <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="16px" fxLayoutGap.lt-sm="0">
+                                <mat-form-field fxFlex="auto" appearance="outline">
+                                    <mat-label>
+                                        تاريخ الميلاد
+                                    </mat-label>
+                                    <input formControlName="dateBirth" type="date" matInput required>
+                                </mat-form-field>
+                                <mat-form-field fxFlex="auto" appearance="outline">
+                                    <mat-label>رقم الهاتف</mat-label>
+                                    <input formControlName="phone" matInput required>
+                                </mat-form-field>
+                            </div>
+
+
+
+                            <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="8px">
+
+                                <button (click)="updateVendorPerInfo()" color="primary" mat-raised-button type="button"> تحديث</button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </form>
+
+
+
+        </div>
+
+
+
+
+        <div class="card mt-6">
+            <div class="px-gutter py-4 border-b">
+                <h2 class="title m-0 font-bold">المرفقات والمستندات</h2>
+            </div>
+
+            <div class="px-gutter py-4" gdColumns="1fr 1fr" gdColumns.xs="1fr" gdGap="16px">
+                <div class="py-3" fxLayout="row" fxLayoutAlign="start center">
+                    <div @scaleIn
+                        class="w-10 h-10 rounded-full bg-primary-light text-primary ltr:mr-3 rtl:ml-3 flex items-center justify-center">
+                    </div>
+
+                    <div *ngIf="vendor.identityFront != null" @fadeInRight>
+                        <p class="m-0 body-1">
+
+                            <img *ngIf="vendor.identityFront != null && frontImage == null" (click)="fileInput.click()"
+                                class="rounded w-400 h-400" gdGridAlign="center"
+                                [src]="server + vendor?.identityFront?.public_url" />
+
+                            <img *ngIf="frontImage != null" class="rounded w-400 h-400" (click)="fileInput.click()"
+                                gdGridAlign="center" [src]="frontImage" />
+
+                            <input hidden="true" type="file" multiple accept="image/png, image/jpeg, image/jpg" max="3"
+                                maxlength="3" class="d-none" (change)="onFrontImageInput($event?.target?.files)"
+                                #fileInput />
+                        </p>
+                        <p class="m-0 caption text-hint">
+                            بطاقة الهوية من الجهة الامامية
+                        </p>
+                    </div>
+                </div>
+
+                <div class="py-3" fxLayout="row" fxLayoutAlign="start center">
+                    <div @scaleIn
+                        class="w-10 h-10 rounded-full bg-primary-light text-primary ltr:mr-3 rtl:ml-3 flex items-center justify-center">
+                    </div>
+
+                    <div *ngIf="vendor.identityBack != null" @fadeInRight>
+                        <p class="m-0 body-1">
+                            <img *ngIf="vendor.identityBack != null && backImage == null" (click)="fileInput1.click()"
+                                class="rounded w-400 h-400" gdGridAlign="center"
+                                [src]="server + vendor?.identityBack?.public_url" />
+
+                            <img *ngIf="backImage != null" (click)="fileInput1.click()" gdGridAlign="center"
+                                class="rounded w-400 h-400" [src]="backImage" />
+
+                            <input hidden="true" type="file" multiple accept="image/png, image/jpeg, image/jpg" max="3"
+                                maxlength="3" class="d-none" (change)="onBackImageInput($event?.target?.files)"
+                                #fileInput1 />
+                        </p>
+                        <p class="m-0 caption text-hint">
+                            بطاقة الهوية من الخلف
+                        </p>
+                    </div>
+                </div>
+                <div class="py-3" fxLayout="row" fxLayoutAlign="start center">
+                    <div @scaleIn
+                        class="w-10 h-10 rounded-full bg-primary-light text-primary ltr:mr-3 rtl:ml-3 flex items-center justify-center">
+                    </div>
+
+                    <div *ngIf="vendor.statementDocument != null" @fadeInRight>
+                        <p class="m-0 body-1">
+
+
+                            <img *ngIf="vendor.statementDocument != null && statementImage == null"
+                                (click)="fileInput2.click()" class="rounded w-400 h-400" gdGridAlign="center"
+                                [src]="server + vendor?.statementDocument?.public_url" />
+
+                            <img *ngIf="statementImage != null" (click)="fileInput2.click()" gdGridAlign="center"
+                                class="rounded w-400 h-400" [src]="statementImage" />
+
+                            <input hidden="true" type="file" multiple accept="image/png, image/jpeg, image/jpg" max="3"
+                                maxlength="3" class="d-none" (change)="onStatementImageInput($event?.target?.files)"
+                                #fileInput2 />
+                        </p>
+                        <p class="m-0 caption text-hint">وثيقة كشف الحساب</p>
+                    </div>
+                </div>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="8px">
+
+                        <button (click)="updateDocuments()" color="primary" mat-raised-button class="font-bold rounded mx-4 my-4">
+                            تحديث
+                        </button>
+                    </div>
+        </div>
+
+
+        <div class="card mt-6">
+            <form [formGroup]="formBusinessInfo">
+                <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px">
+                    <div @fadeInUp class="card" fxFlex="auto">
+                        <div class="px-6 py-4 border-b" fxLayout="row" fxLayoutAlign="start center">
+                            <h2 class="title m-0 font-bold">
+                                المعلومات التجارية
+                            </h2>
+                        </div>
+
+                        <div class="px-6 py-4" fxLayout="column">
+
+
+                            <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="16px" fxLayoutGap.lt-sm="0">
+                                <mat-form-field fxFlex="auto" appearance="outline">
+                                    <mat-label>
+                                        الاسم التجاري
+                                    </mat-label>
+                                    <input formControlName="businessName" matInput required>
+                                </mat-form-field>
+                                <mat-form-field fxFlex="auto" appearance="outline">
+                                    <mat-label>معرف الشركة</mat-label>
+                                    <input formControlName="numberCompany" matInput required>
+                                </mat-form-field>
+                            </div>
+
+                            <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="16px" fxLayoutGap.lt-sm="0">
+                                <mat-form-field fxFlex="auto" appearance="outline">
+                                    <mat-label>
+                                        اسم المتجر
+                                    </mat-label>
+                                    <input formControlName="storeName" matInput required>
+                                </mat-form-field>
+                                <mat-form-field fxFlex="auto" appearance="outline">
+                                    <mat-label> وصف المتجر</mat-label>
+                                    <input formControlName="storeDescription" matInput required>
+                                </mat-form-field>
+                            </div>
+
+                            <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="16px" fxLayoutGap.lt-sm="0">
+
+                                <mat-form-field fxFlex="auto" appearance="outline">
+                                    <mat-label> نوع عملك</mat-label>
+                                    <mat-select formControlName="businessType" name="business">
+                                        <mat-option value="STATE">الأعمال المملوكة للدولة</mat-option>
+                                        <mat-option value="PUBLIC">الأعمال المدرجة في البورصة</mat-option>
+                                        <mat-option value="PRIVATE">الأعمال المملوكة للقطاع الخاص</mat-option>
+                                        <mat-option value="CHARITY">صدقة</mat-option>
+                                        <mat-option value="INDIVIDUAL">لا شيء ، أنا فرد</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <mat-form-field fxFlex="auto" appearance="outline">
+                                    <mat-label>
+                                        عنوان الطريق
+                                    </mat-label>
+                                    <input formControlName="adressLine" matInput required>
+                                </mat-form-field>
+
+                            </div>
+
+                            <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="16px" fxLayoutGap.lt-sm="0">
+                                <mat-form-field fxFlex="auto" appearance="outline">
+                                    <mat-label>
+                                        عنوان الطريق 2
+                                    </mat-label>
+                                    <input formControlName="adressLine2" matInput required>
+                                </mat-form-field>
+                                <mat-form-field fxFlex="auto" appearance="outline">
+                                    <mat-label>
+                                        المدينة
+                                    </mat-label>
+                                    <input formControlName="city" matInput required>
+                                </mat-form-field>
+
+                            </div>
+
+                            <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="16px" fxLayoutGap.lt-sm="0">
+                                <mat-form-field fxFlex="auto" appearance="outline">
+                                    <mat-label>
+                                        الرمز البريدي
+                                    </mat-label>
+                                    <input formControlName="postalCode" matInput required>
+                                </mat-form-field>
+
+
+                            </div>
+
+                            <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="8px">
+
+                                <button (click)="updateVendorBusInfo()" color="primary" mat-raised-button type="button"> تحديث</button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </form>
+
+
+
+        </div>
+
+        <div class="card  mt-6 " [formGroup]="formPassword">
+            <div class="px-gutter py-4 border-b">
+                <h2 class="title m-0 font-bold">تغيير كلمة العبور</h2>
+            </div>
+            <form [formGroup]="firstFormGroup" (ngSubmit)="changePassword()">
+                <div class="px-6 py-4" fxLayout="column">
+
+                    <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutGap="16px" fxLayoutGap.lt-sm="0">
+                        <mat-form-field fxFlex="auto" appearance="outline">
+                            <mat-label>كلمة العبور الحالية</mat-label>
+                            <input matInput formControlName="oldPassword" type="password">
+                        </mat-form-field>
+                        <mat-form-field fxFlex="auto" appearance="outline">
+                            <mat-label>كلمة العبور الجديدة</mat-label>
+                            <input matInput formControlName="newPassword" type="password">
+                        </mat-form-field>
+                    </div>
+
+                    <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="8px">
+
+                        <button (click)="changePassword()" color="primary" mat-raised-button class="font-bold rounded">
+                            تحديث
+                        </button>
+                    </div>
+
+
+                </div>
+            </form>
+        </div>
+
+    </div>

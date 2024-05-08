@@ -1,0 +1,72 @@
+<div class="p-2">
+  <mat-card>
+    <h1 class="mb-5">اختر فئة المنتج</h1>
+    <label class="mb-10">يضمن اختيار أفضل فئة رؤية حقول البيانات الأكثر ملاءمة لمنتجك. تصفح الفئات مباشرة أو استخدم البحث.</label>
+
+    <form  class="example-form mt-5">
+      <div class="card" fxLayout="row" fxLayout.lt-md="row" fxLayoutGap="20px">
+        <div class=" py-4" fxLayout="row">
+          <div
+            fxLayout="row"
+            fxLayout.lt-sm="column"
+            fxLayoutGap="16px"
+            fxLayoutGap.lt-sm="0"
+          >
+          <cdk-virtual-scroll-viewport class="w-full" itemSize="60" fxFlex="50">
+            <dl class="example-dl w-full">
+              <label class="text-sm mb-5 "> البحث عن طريق الأقسام</label>
+              <ng-container *cdkVirtualFor="let department of departments">
+                <dt class="example-dt">
+                 
+                    <mat-form-field class="w-full" appearance="outline">
+                        <mat-label>{{department.department.arName}}</mat-label>
+                        <mat-select [formControl]="toppings">
+                          <mat-option *ngFor="let childCategory of department.childCategories" [value]="childCategory.id" [routerLink]= "['/manage-inventory/products/add/',childCategory.id]">{{childCategory.arName}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                </dt>
+                
+              </ng-container>
+            </dl>
+          </cdk-virtual-scroll-viewport>
+
+          <div fxFlex="50">
+            <label class="text-base mb-5 mx-4"> البحث عن طريق الفئات</label>
+            <mat-form-field    appearance="outline">
+              <mat-label> فئة المنتج</mat-label>
+              <input type="text" matInput (input)="onSearchChange($event.target.value)" [formControl]="myControl">
+              
+            </mat-form-field>
+            <cdk-virtual-scroll-viewport class="example-viewport" itemSize="60">
+              <dl class="example-dl">
+                  <mat-selection-list #shoes [multiple]="false">
+                      <mat-list-option  *cdkVirtualFor="let childCategory of childCategories" [routerLink]= "['/manage-inventory/products/add/',childCategory.id]" [value]="'shoe'">
+                        {{childCategory.name}} - {{childCategory.arName}}
+                      </mat-list-option>
+                    </mat-selection-list>
+    
+              </dl>
+            </cdk-virtual-scroll-viewport>
+           </div>
+
+
+          </div>
+
+      
+        </div>
+      </div>
+
+        
+
+        
+
+          
+          
+          
+         
+
+      </form>
+
+  </mat-card>
+</div>
+    

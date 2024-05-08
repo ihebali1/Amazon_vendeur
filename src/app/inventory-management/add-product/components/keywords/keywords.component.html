@@ -1,0 +1,61 @@
+<div class="p-10">
+
+    <div>
+
+        <div>
+            <label class="font-bold">مصطلحات البحث</label>
+        </div>
+        <div class="col-span-6">
+            <div class="flex flex-row gap-4">
+              
+
+                <mat-form-field class="example-chip-list" appearance="outline">
+                    <mat-label>
+                        مصطلحات البحث
+                    </mat-label>
+                    <mat-chip-list #chipList aria-label="Fruit selection">
+                      <mat-chip *ngFor="let searchTerm of searchTerms" (removed)="remove(searchTerm)">
+                        {{searchTerm}}
+                        <button matChipRemove>
+                          <mat-icon>cancel</mat-icon>
+                        </button>
+                      </mat-chip>
+                      <input placeholder="أدخل مصطلحات البحث"
+                             [matChipInputFor]="chipList"
+                             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                             [matChipInputAddOnBlur]="addOnBlur"
+                             (matChipInputTokenEnd)="add($event)">
+                    </mat-chip-list>
+                  </mat-form-field>
+
+            </div>
+        </div>
+        <div>
+            <label class="font-bold">الكلمات الرئيسية البلاتينية</label>
+        </div>
+        <div class="col-span-6">
+           
+            <mat-form-field class="example-chip-list" appearance="outline">
+                <mat-label>
+                    <mat-label>الكلمات الرئيسية البلاتينية</mat-label>
+                </mat-label>
+                <mat-chip-list #chipList2 aria-label="Fruit selection">
+                  <mat-chip *ngFor="let platinumKeyword of platinumKeywords" (removed)="remove(platinumKeyword)">
+                    {{platinumKeyword}}
+                    <button matChipRemove>
+                      <mat-icon>cancel</mat-icon>
+                    </button>
+                  </mat-chip>
+                  <input placeholder="أدخل مصطلحات البحث"
+                         [matChipInputFor]="chipList2"
+                         [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                         [matChipInputAddOnBlur]="addOnBlur"
+                         (matChipInputTokenEnd)="addPlat($event)">
+                </mat-chip-list>
+              </mat-form-field>
+        </div>
+    </div>
+
+
+
+</div>

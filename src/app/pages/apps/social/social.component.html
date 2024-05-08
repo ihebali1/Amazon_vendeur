@@ -1,0 +1,25 @@
+<div class="container py-gutter">
+    <div class="card overflow-hidden">
+        <div class="h-24 relative overflow-hidden">
+      
+
+
+            <img class="avatar h-10 w-10 absolute top-6 ltr:left-4 rtl:right-4 sm:hidden" src="assets/img/avatars/1.jpg">
+        </div>
+
+        <div class="z-10 relative -mt-16 px-gutter flex items-center">
+
+            <img @scaleIn class="avatar h-24 w-24 flex-none align-start hidden sm:block border-3 border-white" src="assets/img/avatars/1.jpg">
+
+            <div class="max-w-full flex-auto sm:ltr:ml-6 sm:rtl:mr-6">
+                <div class="h-16 flex items-center">
+                    <h1 @fadeInRight class="headline font-medium mx-8">{{translateStatus(vendor.vendorState)}}</h1>
+                </div>
+
+             
+            </div>
+        </div>
+    </div>
+
+    <router-outlet></router-outlet>
+</div>

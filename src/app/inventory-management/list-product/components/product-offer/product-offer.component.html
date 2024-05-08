@@ -1,0 +1,39 @@
+<div class="card p-10 bg-white shadow-sm border border-gray-200 rounded-lg"  *ngIf="isWithVatiations == false"   >
+      <div        class="grid grid-cols-7 gap-4"   >
+        <div>
+          <label>سعر المنتج</label>
+        </div>
+        <div class="col-span-6">
+          <div class="flex flex-row gap-4">
+            <mat-form-field class="example-form-field" appearance="outline">
+                <mat-label>السعر</mat-label>
+                <input  matInput   [(ngModel)]="productInfo.price" type="text"  >
+                
+              </mat-form-field>
+            
+         
+          </div>
+        </div>
+  
+        <div>
+          <label>كمية المنتج</label>
+        </div>
+        <div class="col-span-6">
+          <div class="flex flex-row gap-4">
+            <mat-form-field class="example-form-field" appearance="outline">
+                <mat-label>الكمية</mat-label>
+                <input matInput   [(ngModel)]="productInfo.quantity" type="text"  >
+              
+              </mat-form-field>
+          </div>
+        </div>
+  
+
+      </div>
+      <div class="basis-1/4">
+        <div class="flex flex-row gap-4">
+             
+                <button (click)="updateOffer()" color="primary" mat-raised-button class="font-bold rounded">تحديث</button>
+        </div>
+    </div>
+  </div>

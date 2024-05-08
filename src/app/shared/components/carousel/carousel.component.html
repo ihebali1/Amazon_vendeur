@@ -1,0 +1,31 @@
+<div class="img-container d-flex jusrify-content-end mt-4">
+    <div class="img-container_add" *ngIf="imageList.length < length">
+      <button (click)="fileInput.click()" class="btn-add"></button>
+    </div>
+    <input
+      type="file"
+      multiple
+      accept="image/png, image/jpeg, image/jpg"
+      max="3"
+      maxlength="3"
+      class="d-none"
+      (change)="onFileInput($event?.target?.files)"
+      #fileInput
+    />
+    <div
+      *ngFor="let img of imageList || []; let i = index"
+      [ngClass]="{ active: i === 1 }"
+      class="img-container_item"
+    >
+      <img class=" w-100" [src]="img" />
+      <span class="remove" (click)="removeImg(i)"> </span>
+    </div>
+
+   
+  </div>
+  <div class="warning" *ngIf="showLengthWarning">
+    <span class="text-right text-warning"
+      >لا يمكن تحميل أكثر من {{ length }} صور</span
+    >
+  </div>
+  

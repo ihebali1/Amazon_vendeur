@@ -1,0 +1,228 @@
+<div class="space-y-10">
+  <div class="my-3">
+    <mat-divider class="mb-4"></mat-divider>
+    <div>
+      <div class="space-y-10">
+        <div class=" my-3">
+          <h1 class="mb-2">التحقق من الهوية</h1>
+          <mat-divider></mat-divider>
+          <div class="parg font-bold my-2">أنا المالك الوحيد أو نقطة الاتصال لهذا الحساب</div>
+          <form formGroupe="verif">
+            <table class="container mx-auto my-3 border-collapse border border-slate-400 ...">
+              <tbody>
+                <tr class="my-2">
+                  <td class="text-dark font-bold text-base py-5 px-2 cln border-b border-l border-[#E8E8E8]">
+                    اسم
+                  </td>
+                  <td *ngIf="info"
+                    class="text-center text-dark font-medium text-base py-5 px-2 border-b border-l border-[#E8E8E8]">
+                    {{ info?.firstName }} {{ info?.lastName }}
+                  </td>
+                </tr>
+                <br />
+                <tr>
+                  <td class="text-dark font-bold text-base py-5 px-2 cln border-b border-l border-[#E8E8E8]">
+                    تاريخ الولادة
+                  </td>
+                  <td *ngIf="info"
+                    class="text-center text-dark font-medium text-base py-5 px-2 border-b border-l border-[#E8E8E8]">
+                    {{ info.dateBirth | date: "dd/MM/yyyy" }}
+                  </td>
+                </tr>
+                <br />
+                <tr>
+                  <td class="text-dark font-bold text-base py-5 px-2 cln border-b border-l border-[#E8E8E8]">
+                    بلد العمل
+                  </td>
+                  <td *ngIf="info"
+                    class="text-center text-dark font-medium text-base py-5 px-2 border-b border-l border-[#E8E8E8]">
+                    {{ info.businessCountry?.name }}
+                  </td>
+                </tr>
+                <br />
+
+                <br />
+                <tr>
+                  <td class="text-dark font-bold text-base py-5 px-2 cln border-b border-l border-[#E8E8E8]">
+                    بيانات الهوية
+                  </td>
+                  <td class="text-center text-dark font-bold text-base py-5 px-2 border-b border-l border-[#E8E8E8]">
+                    مدينة
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <table class="container mx-auto my-3 border-collapse border border-slate-400 ...">
+              <tbody>
+                <tr>
+                  <td class="text-dark font-bold text-base py-5 px-2 cln border-b border-l border-[#E8E8E8]">
+                    وثيقة الهوية
+                  </td>
+                  <td class="text-dark font-bold text-base py-5 px-2 border-b border-l border-[#E8E8E8]">
+                    <div class="center file_upload p-5 relative border-4 border-dotted border-gray-100"
+                  >
+                      <div class="input_field flex flex-col w-max mx-auto text-center">
+                        <label>
+                          <img *ngIf="front_side != null" (click)="fileInput.click()" 
+                            gdGridAlign="center" [src]="front_side" />
+                          <img *ngIf="front_side == null" (click)="fileInput.click()" 
+                            gdGridAlign="center" src="assets/img/placeholder.png" />
+
+                          <input hidden="true" (change)="onFrontFileInput($event?.target?.files)" #fileInput
+                            accept="image/png, image/jpeg, image/jpg" class="text-sm cursor-pointer w-36 hidden"
+                            type="file" />تحميل الجانب الأمامي
+                        </label>
+                      </div>
+                    </div>
+                    <br />
+                    <div class="file_upload p-9 relative border-4 border-dotted border-gray-100" >
+                      <div class="input_field flex flex-col w-max mx-auto text-center">
+                        <label>
+                          <img *ngIf="back_side != null" (click)="fileInput2.click()" 
+                            gdGridAlign="center" [src]="back_side" />
+                          <img *ngIf="back_side == null" (click)="fileInput2.click()" 
+                            gdGridAlign="center" src="assets/img/placeholder.png" />
+
+                          <input hidden="true" (change)="onBackFileInput($event?.target?.files)" #fileInput2
+                            accept="image/png, image/jpeg, image/jpg" class="text-sm cursor-pointer w-36 hidden"
+                            type="file" />تحميل الجانب الخلفي
+
+                          <div
+                            class="text bg-indigo-100 text-white border border-gray-100 rounded font-semibold cursor-pointer p-1 px-3 hover:bg-indigo-100">
+                            Select
+                          </div>
+                        </label>
+                      </div>
+                      <p>قم بتحميل الجانب الخلفي حتى لو كان فارغًا</p>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <table class="container mx-auto my-3 border-collapse border border-slate-400 ...">
+              <tbody></tbody>
+            </table>
+
+            <table class="container mx-auto my-3 border-collapse border border-slate-400 ...">
+              <tbody>
+                <tr>
+                  <td class="text-dark font-bold text-base py-5 px-2 cln border-b border-l border-[#E8E8E8]">
+                    وثيقة إضافية
+                  </td>
+                  <td class="text-center text-dark font-medium text-base py-5 px-2 border-b border-l border-[#E8E8E8]">
+                    <p>اختر نوع الوثيقة من القائمة المنسدلة</p>
+                    <br />
+                    <div>
+                      <mat-form-field appearance="outline" class="mx-7 w-full">
+                        <mat-label>كشف حساب بنكى</mat-label>
+
+                        <mat-select>
+                          <mat-option value="tunisia">بطاقة الائتمان</mat-option>
+                          <mat-option value="Germany">وثيقة بنكية</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <br />
+                    <div class="file_upload p-9 relative border-4 border-dotted border-gray-100">
+                      <div class="input_field flex flex-col w-max mx-auto text-center">
+                        <label>
+                          <img *ngIf="front_side != null" (click)="fileInput3.click()"
+                            gdGridAlign="center" [src]="statement" />
+                          <img *ngIf="statement == null" (click)="fileInput3.click()" 
+                            gdGridAlign="center" src="assets/img/placeholder.png" />
+
+                          <input hidden="true" (change)="
+                              onStatementFileInput($event?.target?.files)
+                            " #fileInput3 accept="image/png, image/jpeg, image/jpg"
+                            class="text-sm cursor-pointer w-36 hidden" type="file" />تحميل الجانب الخلفي
+
+                          <div
+                            class="text bg-indigo-100 text-white border border-gray-100 rounded font-semibold cursor-pointer p-1 px-3 hover:bg-indigo-100">
+                            يختار
+                          </div>
+                        </label>
+                      </div>
+                      <p>قم بتحميل الجانب الخلفي حتى لو كان فارغًا</p>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <table class="container mx-auto my-3 border-collapse border border-slate-400 ...">
+              <tbody>
+                <tr>
+                  <td class="text-dark font-bold text-base py-5 px-2 cln border-b border-l border-[#E8E8E8]">
+                    عنوان العمل
+                  </td>
+                  <td class="text-center text-dark font-bold text-base py-5 px-2 border-b border-l border-[#E8E8E8]">
+                    <p *ngIf="info" class="mt-2">
+                      {{ info.businessAdress.adressLine }},
+                      {{ info.businessAdress.adressLine2 }},
+                      {{ info.businessAdress.city }} ,
+                      {{ info?.businessState?.name }} ,
+                      {{ info.businessAdress.postalCode }}
+                    </p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <table class="container mx-auto my-3 border-collapse border border-slate-400 ...">
+              <tbody>
+                <tr>
+                  <td class="text-dark font-bold text-base py-5 px-2 cln border-b border-l border-[#E8E8E8]">
+                    الاسم التجاري
+                  </td>
+                  <td class="text-center text-dark font-medium text-base py-5 px-2 border-b border-l border-[#E8E8E8]">
+                    {{info?.businessInfo.businessName}}
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="text-dark font-bold text-base py-5 px-2 cln border-b border-l border-[#E8E8E8]">
+                    رقم تسجيل الشركة
+                  </td>
+                  <td class="text-center text-dark font-medium text-base py-5 px-2 border-b border-l border-[#E8E8E8]">
+                    {{info?.businessInfo.numberCompany}}
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="text-dark font-bold text-base py-5 px-2 cln border-b border-l border-[#E8E8E8]">
+                    اسم المتجر
+                  </td>
+                  <td class="text-center text-dark font-medium text-base py-5 px-2 border-b border-l border-[#E8E8E8]">
+                    {{info?.businessInfo.storeName}}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <mat-divider class="my-10 solid"></mat-divider>
+      <div class="mx-5">
+        <table>
+          <div class="btn relative h-32 w-32">
+            <tr>
+              <td>
+                <button (click)="submitDocuments()" class="rounded-full max-w-full w-50" color="primary"
+                  mat-raised-button type="button">
+                  أكد الآن
+                </button>
+              </td>
+            </tr>
+          </div>
+        </table>
+      </div>
+
+      <mat-divider class="mtb-2 solid"></mat-divider>
+    </div>
+  </div>
+</div>

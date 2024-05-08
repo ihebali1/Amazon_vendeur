@@ -1,0 +1,101 @@
+<div class=" ">
+    <div *ngIf="info" class="container mx-auto my-3">
+        <mat-divider class="mb-4"></mat-divider>
+        <div>
+            <h3> المعلومات الشخصية لـ<strong> {{info?.firstName}}
+                    {{info?.lastName}} </strong> </h3>
+            <mat-divider></mat-divider>
+        </div>
+
+    </div>
+
+</div>
+
+<form [formGroup]="personalInfo">
+
+    <div class="container mx-auto">
+        <div class="flex flex-col">
+
+            <div class="font-bold"><label>البلد التي تنتمي لها </label></div>
+            <div>
+                <mat-form-field appearance="outline" class="w-full">
+                    <mat-label *ngIf="countries">اختر دولة</mat-label>
+                    <mat-select formControlName="personalCity" name="country">
+                        <mat-option *ngFor="let country of countries"
+                            [value]="country.id">{{country.name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <label>بلد الميلاد</label>
+            <mat-form-field *ngIf="countriesBirth" appearance="outline"
+                class="w-full">
+                <mat-label>اختر دولة</mat-label>
+                <mat-select
+                    formControlName="personalCountryBirth"
+                    name="countryBirth">
+                    <mat-option *ngFor="let countryBirth of
+                        countriesBirth"
+                        [value]="countryBirth.id">
+                        {{countryBirth.name}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <label>تاريخ الولادة</label>
+            <mat-form-field dir="rtl" class="w-full"
+                appearance="outline">
+                <mat-label>تاريخ الولادة</mat-label>
+                <input formControlName="dateBirth" matInput
+                    [matDatepicker]="picker">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker [dateClass]="dateClass" #picker></mat-datepicker>
+            </mat-form-field>
+
+
+
+
+        </div>
+    </div>
+
+
+    <div>
+        <mat-form-field appearance="outline" class="
+            w-full">
+            <mat-label>إثبات الهوية </mat-label>
+            <mat-select formControlName="proofidentity">
+                <mat-option value="PASSPORT ">جواز سفر</mat-option>
+                <mat-option value="DRIVE_LICENSE">رخصة
+                    السائق</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+
+    <mat-form-field dir="rtl" class="w-full"
+        appearance="outline">
+        <mat-label>تاريخ الانتهاء</mat-label>
+        <input formControlName="dateExpiry" matInput
+            [matDatepicker]="picker">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker [dateClass]="dateClass" #picker></mat-datepicker>
+    </mat-form-field>
+
+
+
+    <mat-form-field *ngIf="countriesBirth" appearance="outline" class="w-full">
+        <mat-label>بلد الإصدار</mat-label>
+        <mat-select formControlName="personalCountry"
+            name="countryBirth">
+            <mat-option *ngFor="let countryBirth of
+                countriesBirth" [value]="countryBirth.id">
+                {{countryBirth.name}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <div *ngIf="personalInfo.valid" class="btn relative h-32 w-32">
+
+        <button (click)="personal_Info()" class="rounded-full mt-4 max-w-full
+            w-200 flot-right" color="primary"
+            mat-raised-button>التالي</button>
+    </div>
+
+</form>

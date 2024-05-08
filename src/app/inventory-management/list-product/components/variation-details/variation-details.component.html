@@ -1,0 +1,22 @@
+<div class="card p-10 bg-white shadow-sm border border-gray-200 rounded-lg">
+    <div class="flex flex-row gap-4">
+        <table id="data">
+            <th *ngFor="let attributeChoice of data.variation.variationAttributeChoices">
+                {{attributeChoice.attribute.arKey}}
+            </th>
+            <th *ngFor="let attributeValue of data.variation.variationAttributeValues">
+                {{attributeValue.attribute.arKey}}
+            </th>
+
+            <tr>
+                <td *ngFor="let attributeChoice of data.variation.variationAttributeChoices">
+                    {{attributeChoice.value}}
+                </td>
+                <td *ngFor="let attributeValue of data.variation.variationAttributeValues">
+                    {{attributeValue.value}}
+                </td>
+            </tr>
+
+        </table>
+    </div>
+</div>

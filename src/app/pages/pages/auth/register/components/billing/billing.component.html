@@ -1,0 +1,195 @@
+<div *ngIf="activeSubscription" @stagger>
+  <div class="bg-card px-gutter">
+    <h1 @fadeInUp class="display-2 mt-10 text-center">
+      الاشتراك الحالي
+    </h1>
+
+  </div>
+
+  <div class="my-12 container" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start start"
+    fxLayoutAlign.xs="start stretch" fxLayoutGap="24px">
+
+    <div class="card p-6 mx-2 selected" fxFlex fxLayout="column" fxLayoutAlign="start center">
+
+      <div class="inline-block p-6 rounded-full text-primary mx-auto flex items-center justify-center ">
+        <ic-icon *ngIf="activeSubscription?.subscription.kind == 'INDIVIDUAL'" [icon]="icBeenhere" size="48px">
+        </ic-icon>
+        <ic-icon *ngIf="activeSubscription?.subscription.kind == 'PROFESSIONAL'" [icon]="icStars" size="48px"></ic-icon>
+      </div>
+
+      <h2 *ngIf="activeSubscription?.subscription.kind == 'INDIVIDUAL'" class="headline my-6">
+        اشتراك فردي
+      </h2>
+      <h2 *ngIf="activeSubscription?.subscription.kind == 'PROFESSIONAL'" class="headline my-6">
+        اشتراك احترافي
+      </h2>
+      <div *ngIf="activeSubscription?.subscription.kind == 'INDIVIDUAL'">
+        <div class="body-1"><span class="body-2"> رسوم </span> تدفعه مقابل كل منتج تم بيعه</div>
+
+      </div>
+      <div *ngIf="activeSubscription?.subscription.kind == 'PROFESSIONAL'">
+        <div class="body-1"><span class="body-2"> اشتراك شهري</span> ، بدون رسوم على المنتجات المباعة</div>
+
+      </div>
+
+
+      <h3 class="display-2 font-bold my-6">{{activeSubscription?.subscription.price}}<span
+          class="text-secondary headline align-top">دينار</span></h3>
+
+
+    </div>
+
+
+
+
+
+  </div>
+
+</div>
+
+<div *ngIf="activeSubscription" @stagger>
+  <div class="bg-card px-gutter">
+    <h1 @fadeInUp class="display-2 mt-10 text-center">
+      اختر خطة الاشتراك
+    </h1>
+    <h2 @fadeInUp class="subheading-2 text-hint text-center max-w-lg mx-auto m-0">
+      حدد خطة الاشتراك التي تناسب احتياجاتك
+    </h2>
+  </div>
+
+  <div class="my-12 container" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start start"
+    fxLayoutAlign.xs="start stretch" fxLayoutGap="24px">
+
+    <div [ngClass]="subscription == selectedSubscription? 'selected' : 'unselected'" @fadeInUp
+      *ngFor="let subscription of subscriptions" class="card p-6 mx-2" fxFlex fxLayout="column"
+      fxLayoutAlign="start center">
+      <div class="inline-block p-6 rounded-full text-primary mx-auto flex items-center justify-center ">
+        <ic-icon *ngIf="subscription.kind == 'INDIVIDUAL'" [icon]="icBeenhere" size="48px"></ic-icon>
+        <ic-icon *ngIf="subscription.kind == 'PROFESSIONAL'" [icon]="icStars" size="48px"></ic-icon>
+      </div>
+
+      <h2 *ngIf="subscription.kind == 'INDIVIDUAL'" class="headline my-6">
+        اشتراك فردي
+      </h2>
+      <h2 *ngIf="subscription.kind == 'PROFESSIONAL'" class="headline my-6">
+        اشتراك احترافي
+      </h2>
+      <div *ngIf="subscription.kind == 'INDIVIDUAL'">
+        <div class="body-1"><span class="body-2"> رسوم </span> تدفعه مقابل كل منتج تم بيعه</div>
+
+      </div>
+      <div *ngIf="subscription.kind == 'PROFESSIONAL'">
+        <div class="body-1"><span class="body-2"> اشتراك شهري</span> ، بدون رسوم على المنتجات المباعة</div>
+
+      </div>
+
+
+      <h3 class="display-2 font-bold my-6">{{subscription.price}}<span class="text-secondary headline align-top">دينار
+          سعودي</span></h3>
+
+      <button *ngIf="subscription.kind == 'PROFESSIONAL' && activeSubscription.subscription.kind == 'INDIVIDUAL'" class="rounded-full max-w-full w-200" 
+        (click)="selectSubscription(subscription)" color="primary" mat-raised-button type="button">اشتراك</button>
+
+        <button *ngIf="subscription.kind == 'PROFESSIONAL' && activeSubscription.subscription.kind != 'INDIVIDUAL'" class="rounded-full max-w-full w-200" 
+        (click)="cancelSubscription(activeSubscription.id)" color="accent" mat-raised-button type="button">إلغاء الاشتراك</button>
+
+        <button *ngIf="subscription.kind == 'INDIVIDUAL' && activeSubscription.subscription.kind == 'INDIVIDUAL'" class="rounded-full max-w-full w-200" 
+        (click)="selectSubscription(subscription)"  mat-raised-button type="button">مشترك</button>
+
+        <button *ngIf="subscription.kind == 'INDIVIDUAL' && activeSubscription.subscription.kind == 'PROFESSIONAL'" class="rounded-full max-w-full w-200" 
+        (click)="cancelSubscription(activeSubscription.id)" color="primary"  mat-raised-button type="button"> الاشتراك</button>
+
+        
+    </div>
+
+
+
+
+
+  </div>
+
+</div>
+
+
+
+<div class="container mx-auto my-3">
+  <mat-divider class="mb-4"></mat-divider>
+  <div *ngIf="selectedSubscription && selectedSubscription?.kind == 'PROFESSIONAL' && activeSubscription.subscription.kind == 'INDIVIDUAL'">
+    <form novalidate (ngSubmit)="createToken()" [formGroup]="stripeForm">
+      <label class="font-bold mb-2">
+        الاسم الموجود على البطاقة</label>
+
+
+      <mat-form-field class=" w-full" appearance="outline">
+        <input style="margin-bottom: 20px" class="form-control" type="text" formControlName="name"
+          placeholder="Jane Doe" matInput />
+      </mat-form-field>
+
+      <ngx-stripe-card (change)="onChange($event)" style="margin-top: 20px" [options]="cardOptions"
+        [elementsOptions]="elementsOptions"></ngx-stripe-card>
+      <div id="card-errors"></div>
+      <button style="margin-bottom: 20px; margin-top: 20px" class="rounded-full max-w-full w-200" color="primary"
+        mat-raised-button type="button" type="submit">
+        إستكمال عملية الشراء
+      </button>
+    </form>
+  </div>
+
+  <div>
+    <div class="mt-2">
+      <h2><strong> معلومات الحساب المصرفي </strong></h2>
+      <small>تفاصيل الحساب المصرفي </small>
+    </div>
+
+
+    <mat-card class="example-card">
+      <mat-card-content>
+        <h2>
+          سيتم استخدام حسابك المصرفي لدفع طلباتك
+        </h2>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <br />
+  <form [formGroup]="billingForm">
+    <mat-form-field class=" w-full" appearance="outline">
+      <mat-label>اسم البنك</mat-label>
+      <input formControlName="bankName" matInput #message maxlength="256" />
+    </mat-form-field>
+  
+    <mat-form-field class=" w-full" appearance="outline">
+      <mat-label>
+        رقم الحساب المصرفي
+      </mat-label>
+      <input formControlName="accountNumber" matInput #message maxlength="256" />
+    </mat-form-field>
+
+      <mat-form-field class=" w-full" appearance="outline">
+        <mat-label>
+          رقم الحساب المصرفي الدولي آيبان
+        </mat-label>
+        <input formControlName="iban" matInput #message maxlength="256" />
+      </mat-form-field>
+
+
+    <mat-card class="example-card mb-2">
+      <mat-card-title>عنوان وصول الفواتير</mat-card-title>
+      <mat-card-content>
+        <p *ngIf="info" class="mt-2">
+          {{ info.businessAdress.adressLine }},
+          {{ info.businessAdress.adressLine2 }},
+          {{ info.businessAdress.city }} , {{ info?.businessState?.name }} ,
+          {{ info.businessAdress.postalCode }}
+        </p>
+      </mat-card-content>
+    </mat-card>
+    <div
+      *ngIf="(this.activeSubscription == null && this.selectedSubscription && this.selectedSubscription.kind == 'INDIVIDUAL') || activeSubscription"
+      class="btn relative h-32 w-32">
+      <button (click)="billing_Data()" class="rounded-full max-w-full mt-2 w-200" color="primary" mat-raised-button
+        type="button">
+        التالي
+      </button>
+    </div>
+  </form>
+</div>

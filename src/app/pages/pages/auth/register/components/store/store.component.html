@@ -1,0 +1,61 @@
+<div class="space-y-10 ">
+    <div class="container mx-auto my-3">
+        <mat-divider class="mb-4"></mat-divider>
+        <div>
+            <div class="mt-2">
+
+                <h2><strong> معلومات المتجر </strong></h2>
+                <p>
+                    اسم المتجر ووصف موجز للنشاط التجاري
+                </p>
+            </div>
+            <mat-divider></mat-divider>
+            <br>
+
+        </div>
+        <br>
+        <form [formGroup]="Store">
+            <div class=" example-form  font-medium "><label>اسم المتجر</label></div>
+            <div>
+                <mat-form-field class=" example-full-width" appearance="outline">
+                    <input formControlName="storeName" matInput #message maxlength="256">
+                </mat-form-field>
+            </div>
+
+            <div class=" example-form  font-medium "><label>
+                    وصف قصير
+                </label></div>
+            <div>
+                <mat-form-field class=" example-full-width" appearance="outline">
+
+                    <textarea formControlName="storeDescription" matInput maxlength="300">
+
+                    </textarea>
+                </mat-form-field>
+            </div>
+        </form>
+        <mat-divider></mat-divider>
+
+
+        <div>
+          
+            <div>
+                <table>
+                    <div class=" btn relative h-32 w-32">
+                        <tr>
+
+                            <td>
+                                <button (click)="Store_Info()" type="button" class="rounded-full max-w-full mt-2 w-200" color="primary" mat-raised-button>التالي
+                                </button>
+
+                            </td>
+                        </tr>
+                    </div>
+                </table>
+            </div>
+
+            <mat-divider class="mtb-2 solid"></mat-divider>
+
+        </div>
+    </div>
+</div>

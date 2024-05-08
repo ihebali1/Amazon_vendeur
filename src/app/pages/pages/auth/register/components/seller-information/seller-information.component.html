@@ -1,0 +1,147 @@
+<div class="space-y-10">
+  <div *ngIf="info" class="container mx-auto my-3">
+    <mat-divider class="mb-4"></mat-divider>
+    <div>
+      <h3>
+        معلومات تجارية لـ
+        <strong> {{ info?.firstName }} {{ info?.lastName }} </strong>
+      </h3>
+      <mat-divider></mat-divider>
+    </div>
+  </div>
+</div>
+
+<form [formGroup]="sellerinfo">
+  <div class="container mx-auto">
+    <div class="flex flex-col">
+   
+      <div>
+        <mat-form-field class="mx-7 w-full" appearance="outline">
+          <mat-label>رقم تسجيل الشركة</mat-label>
+          <input
+            formControlName="numberCompany"
+            matInput
+            #message
+            maxlength="256"
+          />
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+
+  <br />
+
+  <div class="container mx-auto">
+    <div class="flex flex-col">
+      <div class="mt-2 mx-7 example-form">
+        <label class="font-bold">عنوان العمل المسجل</label>
+      </div>
+     
+
+      <mat-form-field class="w-full" appearance="outline">
+        <mat-label>العنوان الأول</mat-label>
+        <input formControlName="adressLine" matInput />
+      </mat-form-field>
+
+      <mat-form-field class="w-full"  appearance="outline">
+        <mat-label>رقم الشقة</mat-label>
+        <input formControlName="adressLine2" matInput />
+      </mat-form-field>
+
+      <mat-form-field class="w-full" appearance="outline">
+        <mat-label> المدينة</mat-label>
+        <input formControlName="city" matInput />
+      </mat-form-field>
+
+      <mat-form-field class="w-full" appearance="outline">
+        <mat-label>الولاية / المنطقة</mat-label>
+
+        <mat-select formControlName="state">
+          <mat-option
+            *ngFor="let Jurisdiction of Jurisdictions"
+            [value]="Jurisdiction.id"
+            >{{ Jurisdiction.name }}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="w-full" appearance="outline">
+        <mat-label>الرمز البريدي / الرمز البريدي</mat-label>
+        <input formControlName="postalCode" matInput />
+      </mat-form-field>
+
+    </div>
+  </div>
+
+  <mat-divider class="mt-6"></mat-divider>
+
+  <div class="mt-5 container mx-auto">
+    <div class="flex flex-col">
+      <div class="mb-3 font-medium"><label>تلقي رمز OTP</label></div>
+      <mat-radio-group
+        formControlName="favoriteRecieve"
+        aria-label="Select an option"
+      >
+        <mat-radio-button value="SMS">
+          <label class="mx-2"> رسالة قصيرة </label>
+        </mat-radio-button>
+        <mat-radio-button value="Call">
+          <label class="mx-2"> مكالمة </label>
+        </mat-radio-button> </mat-radio-group
+      ><br />
+
+      <div class="mx-7 example-form">
+        <label for="phone">رقم الهاتف للتحقق</label>
+      </div>
+      <div>
+        <mat-form-field class="w-full" appearance="outline">
+          <mat-label>هاتف</mat-label>
+          <span matPrefix>+216 &nbsp;</span>
+          <input
+            formControlName="phone"
+            type="tel"
+            matInput
+            placeholder="555-555-1234"
+          />
+          <mat-icon matSuffix>mode_edit</mat-icon>
+          <mat-hint>مثال: 000-000-000</mat-hint>
+        </mat-form-field>
+      </div>
+      <br />
+
+      <div class="mb-2 font-medium">
+        <label> لغة التحقق من الرسائل القصيرة</label>
+      </div>
+      <div>
+
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>لغة التحقق</mat-label>
+
+          <mat-select formControlName="verificationLanguage">
+            <mat-option value="Arabic">عربي</mat-option>
+            <mat-option value="English">إنجليزي</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div class="btn w-full" appearance="outline">
+          <button
+          class="rounded-full max-w-full w-200 flot-right" mat-raised-button
+          >
+            أرسل رسالة نصية قصيرة
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <div class="btn relative h-32 w-32 mt-4">
+    <button
+      (click)="seller_Info()"
+      class="rounded-full max-w-full w-200" color="primary" mat-raised-button
+    >
+      التالي
+    </button>
+  </div>
+
+</form>

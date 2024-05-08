@@ -1,0 +1,34 @@
+@font-face {
+    font-family: "Elboursa";
+    src: local('Elboursa'), url(./alfont-com-vexa-light.ttf) format("truetype");
+}
+
+@font-face {
+    font-family: "Elboursa-light";
+    src: local('Elboursa-light'), url(./alfont-com-vexa-light.ttf) format("truetype");
+}
+
+@font-face {
+    font-family: "Elboursa-bold";
+    src: local('Elboursa-bold'), url(./alfont-com-vexa-light.ttf) format("truetype");
+}
+
+
+body {
+    font-family: "Elboursa", Arial, Helvetica, sans-serif!important;
+    letter-spacing: 0.5px;
+}
+
+.main-font {
+    font-family: "Elboursa", Arial, Helvetica, sans-serif !important;
+    font-weight: 600;
+}
+
+.main-font_light {
+    font-family: "Elboursa-light", Arial, Helvetica, sans-serif !important;
+}
+
+.main-font_bold {
+    font-family: "Elboursa-bold", Arial, Helvetica, sans-serif !important;
+    font-weight: 700;
+}

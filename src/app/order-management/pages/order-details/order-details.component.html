@@ -1,0 +1,17 @@
+<div class="container py-gutter" style="overflow-y:hidden">
+  
+    <nav class=" bg-white shadow-md border border-gray-200 rounded-lg vex-tabs vex-tabs-dense border-0 sticky fixed top-0" mat-tab-nav-bar>
+      <a #rla="routerLinkActive"
+         *ngFor="let link of links"
+         [active]="rla.isActive"
+         [disabled]="link.disabled"
+         [routerLink]="link.route"
+         mat-tab-link
+         queryParamsHandling="preserve"
+         [routerLinkActiveOptions]="link.routerLinkActiveOptions || { exact: false }"
+         routerLinkActive>
+        {{ link.label }}
+      </a>
+    </nav>
+    <router-outlet class="p-4 "></router-outlet>
+  </div>

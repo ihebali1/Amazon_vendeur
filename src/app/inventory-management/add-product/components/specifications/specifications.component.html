@@ -1,0 +1,45 @@
+<div class="card" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px">
+    <div @fadeInUp fxFlex="auto">
+      <div
+        class="md:px-6 py-4 border-b"
+        fxLayout="row"
+        fxLayoutAlign="start center"
+      >
+       
+      </div>
+   
+      <div class="md:px-6 py-4" fxLayout="column">
+        <div *ngFor="let specification of specifications; let i=index;"
+          fxLayout="row"
+          fxLayout.lt-sm="column"
+          fxLayoutGap="16px"
+          fxLayoutGap.lt-sm="16px"
+        >
+          <mat-form-field appearance="outline" fxFlex="15">
+            <mat-label>الخاصية بالعربي</mat-label>
+            <input [(ngModel)]="specification.arKey" placeholder="الخاصية" type="text" cdkFocusInitial  matInput required>
+          </mat-form-field>
+          <mat-form-field appearance="outline" fxFlex="15">
+            <mat-label>الخاصية بالانجليزي</mat-label>
+            <input [(ngModel)]="specification.key" placeholder="الخاصية" type="text" cdkFocusInitial  matInput required>
+          </mat-form-field>
+          <mat-form-field appearance="outline" fxFlex="auto">
+            <mat-label>الوصف</mat-label>
+            <input [(ngModel)]="specification.value" placeholder="الوصف" type="text" cdkFocusInitial matInput required>
+          </mat-form-field>
+          <button (click)="removeSpecification(i)" color="accent">
+            <ic-icon [icon]="icDelete" size="24px"></ic-icon>
+          </button>
+         
+        </div>
+
+      </div>
+      <button (click)="addSpecification()" mat-raised-button color="primary"> 
+  
+        <ic-icon [icon]="icAdd" size="24px"></ic-icon>
+      </button>
+
+    
+
+    </div>
+  </div>

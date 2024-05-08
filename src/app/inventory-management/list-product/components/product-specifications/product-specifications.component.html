@@ -1,0 +1,49 @@
+<div class="card" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px">
+    <div @fadeInUp fxFlex="auto">
+      <div
+        class="px-6 py-4 border-b"
+        fxLayout="row"
+        fxLayoutAlign="start center"
+      >
+       
+      </div>
+   
+      <div class="px-6 py-4" fxLayout="column">
+        <div *ngFor="let specification of specifications; let i=index;"
+          fxLayout="row"
+          fxLayout.lt-sm="column"
+          fxLayoutGap="16px"
+          fxLayoutGap.lt-sm="16px"
+        >
+          <mat-form-field appearance="outline" fxFlex="15">
+            <mat-label>الخاصية بالعربي</mat-label>
+            <input [(ngModel)]="specification.arKey"  readonly="true"
+            *ngIf="productInfo.isApproved == true"  placeholder="الخاصية" type="text" cdkFocusInitial  matInput required>
+          </mat-form-field>
+          <mat-form-field appearance="outline" fxFlex="15">
+            <mat-label>الخاصية بالانجليزي</mat-label>
+            <input [(ngModel)]="specification.key"  readonly="true"
+            *ngIf="productInfo.isApproved == true"  placeholder="الخاصية" type="text" cdkFocusInitial  matInput required>
+          </mat-form-field>
+          <mat-form-field appearance="outline" fxFlex="auto">
+            <mat-label>الوصف</mat-label>
+            <input [(ngModel)]="specification.value"  readonly="true"
+            *ngIf="productInfo.isApproved == true"  placeholder="الوصف" type="text" cdkFocusInitial matInput required>
+          </mat-form-field>
+          <a  
+         (click)="removeSpecification(specification.id)" *ngIf="specification.id && productInfo.isApproved == false">
+            <mat-icon color="warn" >delete</mat-icon>
+          </a>
+          <a    (click)="addSpecification(specification)" *ngIf="!specification.id && productInfo.isApproved == false"> 
+            <mat-icon>library_add</mat-icon>
+          </a>
+         
+        </div>
+
+      </div>
+      
+
+    
+
+    </div>
+  </div>

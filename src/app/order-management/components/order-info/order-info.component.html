@@ -1,0 +1,99 @@
+<div class="bg-white shadow-sm border border-gray-200 rounded-lg p-10 antialiased">
+    <div class="py-2 px-4 md:px-6 2xl:px-20 2xl:container 2xl:mx-auto">
+        <!--- more free and premium Tailwind CSS components at https://tailwinduikit.com/ --->
+
+        <div class="flex justify-start item-start space-y-2 flex-col">
+            <h1 class="text-3xl dark:text-white lg:text-xl font-semibold leading-7 lg:leading-9 text-gray-800">طلبية رقم
+                #{{order?.orderId}}</h1>
+            <hr>
+            <p class="text-base my-2 dark:text-gray-300 font-medium leading-6 text-gray-600">بتاريخ {{order?.createdAt |
+                date: 'dd/MM/yyyy hh:mm a' }}</p>
+            <p class="text-base dark:text-gray-300 font-medium leading-6 text-gray-600">بمبلغ
+                {{order?.totalPrice * (1 - order.platformGainPercentage/100)}}$ بعد طرح {{order?.totalPrice *
+                (order.platformGainPercentage/100)}}$ كمرابح المنصة
+            </p>
+        </div>
+    </div>
+
+    <!-- This is an example component -->
+    <div class="max-w-4xl mx-auto mt-2">
+
+        <div class="flex flex-col">
+            <div class="overflow-x-auto shadow-md sm:rounded-lg">
+                <div class="inline-block min-w-full align-middle">
+                    <div class="overflow-hidden ">
+                        <table class="min-w-full divide-y divide-gray-200 table-fixed dark:divide-gray-700">
+                            <thead class="bg-gray-100 dark:bg-gray-700">
+                                <tr>
+                                    <th scope="col"
+                                        class="py-3 px-6 text-xs font-medium tracking-wider text-right text-gray-700 uppercase dark:text-gray-400">
+                                        المنتج
+                                    </th>
+
+                                    <th scope="col"
+                                        class="py-3 px-6 text-xs font-medium tracking-wider text-right text-gray-700 uppercase dark:text-gray-400">
+                                        الكمية
+                                    </th>
+                                    <th scope="col"
+                                        class="py-3 px-6 text-xs font-medium tracking-wider text-right text-gray-700 uppercase dark:text-gray-400">
+                                        المبلغ
+                                    </th>
+
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
+                                <tr *ngFor="let orderItem of order.orderItems"
+                                    class="hover:bg-gray-100 dark:hover:bg-gray-700">
+
+                                    <td *ngIf="orderItem.product.parentListing"
+                                        class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        {{ orderItem?.product?.parentListing.name }}
+                                    </td>
+                                    <td *ngIf="!orderItem.product.parentListing"
+                                        class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        {{ orderItem?.product?.name }}
+                                    </td>
+                                    <td
+                                        class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap dark:text-white">
+                                        {{ orderItem?.quantity }}
+                                    </td>
+                                    <td
+                                        class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        <label dir="ltr">
+                                            {{ orderItem?.quantity * orderItem?.itemPrice}} $
+                                        </label>
+
+                                    </td>
+
+                                </tr>
+                            </tbody>
+
+                            <tfoot class="bg-gray-100 dark:bg-gray-700">
+                                <tr>
+
+
+
+                                    <th scope="col"
+                                        class="py-3 px-6 text-xs font-medium tracking-wider text-right text-gray-700 uppercase dark:text-gray-400">
+
+                                    </th>
+                                    <th scope="col"
+                                        class="py-3 px-6 text-xs font-medium tracking-wider text-right text-gray-700 uppercase dark:text-gray-400">
+                                        المبلغ الإجمالي
+                                    </th>
+                                    <th scope="col"
+                                        class="py-3 px-6 text-xs font-medium tracking-wider text-right text-gray-700 uppercase dark:text-gray-400">
+                                        {{order?.totalPrice}}$
+                                    </th>
+                                </tr>
+                            </tfoot>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

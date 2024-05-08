@@ -1,0 +1,156 @@
+<div class="container py-gutter ">
+    <div class="card overflow-hidden">
+        <div class="h-32 relative overflow-hidden">
+            <img class="w-full h-full object-cover" src="assets/img/demo/landscape.jpg">
+            <div class="absolute bg-contrast-black opacity-25 top-0 right-0 bottom-0 left-0 w-full h-full z-0"></div>
+
+        </div>
+
+    </div>
+    <div class="card overflow-hidden">
+        <div class="p-10">
+            <div class="grid grid-cols-7 gap-4">
+                <div>
+                    <mat-label>اسم</mat-label>
+                </div>
+                <div class="col-span-6">
+                    <div class="flex flex-row gap-4">
+                        <mat-form-field class="example-form-field" appearance="outline">
+                            <mat-label></mat-label>
+                            <input readonly matInput [(ngModel)]="coupon.title" type="text" disabled>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div>
+                    <mat-label>تاريخ البدء</mat-label>
+                </div>
+                <div class="col-span-6">
+                    <div class="flex flex-row gap-4">
+                        <mat-form-field class="example-form-field" appearance="outline">
+                            <mat-label></mat-label>
+                            <input readonly matInput [(ngModel)]="coupon.startDate" type="text" disabled>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div>
+                    <mat-label>تاريخ الانتهاء</mat-label>
+                </div>
+                <div class="col-span-6">
+                    <div class="flex flex-row gap-4">
+                        <mat-form-field class="example-form-field" appearance="outline">
+                            <mat-label></mat-label>
+                            <input readonly matInput [(ngModel)]="coupon.endDate" type="text" disabled>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div>
+                    <mat-label>redemption</mat-label>
+                </div>
+                <div class="col-span-6">
+                    <div class="flex flex-row gap-4">
+                        <mat-form-field class="example-form-field" appearance="outline">
+                            <mat-label></mat-label>
+                            <input readonly matInput [(ngModel)]="coupon.redemptionLimit" type="text" disabled>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div>
+                    <mat-label>خصم</mat-label>
+                </div>
+                <div class="col-span-6">
+                    <div class="flex flex-row gap-4">
+                        <mat-form-field class="example-form-field" appearance="outline">
+                            <mat-label></mat-label>
+                            <input readonly matInput [(ngModel)]="coupon.discount" type="text" disabled>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div>
+                    <mat-label>الدخل</mat-label>
+                </div>
+                <div class="col-span-6">
+                    <div class="flex flex-row gap-4">
+                        <mat-form-field class="example-form-field" appearance="outline">
+                            <mat-label></mat-label>
+                            <input readonly matInput [(ngModel)]="coupon.budget" type="text" disabled>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div>
+                    <mat-label>الفئة</mat-label>
+                </div>
+                <div class="col-span-6">
+                    <div class="flex flex-row gap-4">
+                        <mat-form-field class="example-form-field" appearance="outline">
+                            <mat-label></mat-label>
+                            <input readonly matInput [(ngModel)]="coupon.type" type="text" disabled>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="antialiased bg-gray-100 text-gray-600  mt-5 px-4">
+        <div class="flex flex-col justify-center h-full">
+            <!-- Table -->
+            <div class="w-full max-w-2xl mx-auto bg-white rounded-sm border border-gray-200">
+                <header class="px-5 py-4 border-b border-gray-100">
+                    <h2 class="font-semibold text-gray-800">قائمة المنتجات</h2>
+                </header>
+                <div class="p-3">
+                    <div class="overflow-x-auto">
+                        <table class="table-auto w-full">
+                            <thead class="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
+                                <tr>
+                                    <th class="p-2 whitespace-nowrap">
+                                        <div class="font-semibold text-right">اسم المنتج</div>
+                                    </th>
+                                    <th class="p-2 whitespace-nowrap">
+                                        <div class="font-semibold text-right">معرف المنتج</div>
+                                    </th>
+                                    <th class="p-2 whitespace-nowrap">
+                                        <div class="font-semibold text-right">نوع المعرف</div>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-sm divide-y divide-gray-100">
+                                <tr *ngFor="let p of coupon.products">
+                                    <td class="p-2 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <div class="font-medium text-gray-800">
+                                                {{p.name}}
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="p-2 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <div class="font-medium text-gray-800">
+                                                {{p.productId}}
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="p-2 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <div class="font-medium text-gray-800">
+                                                {{p.productIdType}}
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <router-outlet class="p-4"></router-outlet>
+</div>

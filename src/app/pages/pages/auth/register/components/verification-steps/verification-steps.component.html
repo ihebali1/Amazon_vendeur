@@ -1,0 +1,67 @@
+
+
+<div class="page-container bg-pattern sidenav-content " *ngIf="vendorInfo"
+    dir="rtl">
+  
+    <div class="mt-4">
+        <h1 class="font-bold">
+            سوق AzizShop
+            <button (click)="logout()" class="rounded-full max-w-full mx-10"
+            color="primary" mat-raised-button aria-label="Example icon-button
+            with share icon">
+            تسجيل خروج
+        </button>
+        </h1>
+    
+    </div>
+    <div *ngIf="vendorInfo" class="w-full justify-center">
+        <mat-divider></mat-divider>
+        <div class="card md:mx-12" style="background-color: white;">
+            <mat-tab-group [selectedIndex]="index">
+                <mat-tab [disabled]="index != 0" label=" معلومات العمل">
+                    <form [formGroup]="firstFormGroup">
+                        <ng-template>معلومات العمل</ng-template>
+                        <vex-seller-information
+                            (sellerInfoChanged)="updateInfo($event)"></vex-seller-information>
+                        <div>
+
+                        </div>
+                    </form> </mat-tab>
+                <mat-tab [disabled]="index != 1" label="معلومات البائع">
+                    <form [formGroup]="firstFormGroup">
+                        <ng-template matStepLabel>معلومات البائع</ng-template>
+                        <vex-personal-information [info]="vendorInfo"
+                            (personalInfoChanged)="updateInfo($event)"></vex-personal-information>
+                    </form>
+                </mat-tab>
+                <mat-tab [disabled]="index != 2" label="الفواتير">
+                    <form [formGroup]="firstFormGroup">
+                        <ng-template matStepLabel>الفواتير</ng-template>
+                        <vex-billing [info]="vendorInfo"
+                            (billingInfoChanged)="updateInfo($event)"></vex-billing>
+                    </form>
+                </mat-tab>
+
+                <mat-tab [disabled]="index != 3" label="متجر">
+                    <form [formGroup]="firstFormGroup">
+                        <ng-template matStepLabel>متجر</ng-template>
+                        <vex-store (storeInfoChanged)="updateInfo($event)"></vex-store>
+                    </form>
+                </mat-tab>
+                <mat-tab [disabled]="index != 4" disabled label="تحقق">
+                    <form [formGroup]="firstFormGroup">
+                        <ng-template matStepLabel>تحقق</ng-template>
+                        <vex-verification [info]="vendorInfo"></vex-verification>
+                    </form>
+                </mat-tab>
+            </mat-tab-group>
+
+
+
+        </div>
+
+
+    </div>
+
+    
+</div>

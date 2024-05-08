@@ -1,0 +1,180 @@
+<div class="flex h-full antialiased text-gray-800  bg-white shadow-sm border border-gray-200 rounded-lg">
+    <div class="flex flex-row h-full w-full overflow-x-hidden">
+      
+      <div class="flex flex-col flex-auto h-full p-6">
+        <div
+          class="flex flex-col flex-auto flex-shrink-0 rounded-2xl bg-gray-100 h-full p-4"
+        >
+          <div class="flex flex-col h-64 overflow-x-auto mb-4">
+            <div class="flex flex-col shadow-md " #scrollMe style="overflow-y: scroll; height:800px;">
+              <div *ngFor="let message of messages"  class="grid grid-cols-12 gap-y-2">
+                  
+                <div class="col-start-1 col-end-8 p-3 rounded-lg" *ngIf="userData.id == message.user.id">
+                  <div class="flex flex-row items-center">
+                    <div
+                      class="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0"
+                    >
+                    <mat-icon>done_all</mat-icon>
+                    </div>
+                    <div
+                      class="relative ml-3 text-sm bg-white py-2 px-4 shadow rounded-xl"
+                    >
+                    <div class="mb-1" *ngIf="message.content">  {{message.content}} </div>
+                    <div class="mb-1" *ngIf="message.image">  
+                        <img src="{{server + message.image.public_url}}"> </div>
+                    <div class="mb-1" *ngIf="message.video">
+                      <video height="500px" width="500px"  src="{{server + message.video.public_url}}" controls></video>  
+                       </div>
+                    </div>
+                  </div>
+                </div>
+              
+                <div class="col-start-6 col-end-13 p-3 rounded-lg" *ngIf="userData.id != message.user.id">
+                  <div class="flex items-center justify-start flex-row-reverse">
+                    <div
+                      class="flex items-center justify-center h-10 w-10 rounded-full flex-shrink-0"
+                    >
+                    <mat-icon>account_circle</mat-icon>
+                    </div>
+                    <div
+                      class="relative mr-3 text-sm bg-indigo-100 py-2 px-4 shadow rounded-xl"
+                    >
+                      <div class="mb-1" *ngIf="message.content">  {{message.content}} </div>
+                      <div class="mb-1" *ngIf="message.image">  
+                          <img src="{{server + message.image.public_url}}"> </div>
+                      <div class="mb-1" *ngIf="message.video">
+                        <video height="500px" width="500px"  src="{{server + message.video.public_url}}" controls></video>  
+                         </div>
+                    </div>
+                  </div>
+                </div>
+              
+
+              </div>
+            </div>
+          </div>
+         
+          <div  class="flex flex-row items-center h-16 rounded-xl bg-white w-full px-4 mt-5">
+            <mat-icon (click)="fileInput.click()" > attach_file</mat-icon>
+
+          
+            <input
+        hidden="true"
+      type="file"
+      multiple
+      accept="image/png, image/jpeg, image/jpg"
+      max="3"
+      maxlength="3"
+      class="d-none"
+      (change)="onImageInput($event)"
+      #fileInput/>
+          
+          <img *ngIf="image == null"
+            height="50px" width="50px"
+           class="rounded"
+          
+           src="assets/img/placeholder.png"/>
+
+           <img *ngIf="image != null"
+            (click)="fileInput.click()" 
+            height="50px" width="50px"
+           class="rounded"
+           gdGridAlign="center"
+           [src]="image" 
+          />
+
+          
+           <mat-icon (click)="fileInput2.click()" > attach_file</mat-icon>
+
+           <video *ngIf="video != null"
+           height="50px" width="50px"
+           (click)="fileInput.click()" 
+           controls
+          class="rounded"
+          gdGridAlign="center"
+          [src]="video" 
+         ></video>
+          
+       
+          <img *ngIf="video == null"
+          height="50px" width="50px"
+           (click)="fileInput2.click()" 
+        
+          class="rounded "
+          gdGridAlign="center"
+         
+          src="assets/img/placeholder.png"/>
+           <input
+hidden="true"
+type="file"
+multiple
+max="3"
+accept="video/mp4"
+maxlength="3"
+class="d-none"
+(change)="onVideoInput($event)"
+#fileInput2/>
+
+<button (click)="sendMessage()" mat-fab color="primary"
+class="flex text-black items-center justify-center bg-indigo-500 hover:bg-indigo-600 rounded-xl mx-4  px-4 py-1 flex-shrink-0"
+>
+
+<span>
+  <svg
+    class="w-6 h-6 transform rotate-45 -mt-px"
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
+    ></path>
+  </svg>
+</span>
+</button>
+     
+        
+          </div>
+
+
+         
+
+           
+        </div>
+
+        <div
+        class=" items-center h-16 rounded-xl bg-white px-4 sticky mb-5"
+      >
+
+
+      <form [formGroup]="messageForm">
+ 
+
+        <div class="flex-grow ml-4">
+            <div class="relative w-200">
+        
+
+              <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label>Type your message ..</mat-label>
+                  <input formControlName="message" matInput placeholder="Hi, please check this ..">
+                </mat-form-field>
+             
+              
+          
+            </div>
+          </div>
+         
+
+          
+      </form>
+    
+      
+      </div>
+
+      </div>
+    </div>
+  </div>

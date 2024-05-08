@@ -1,0 +1,108 @@
+
+<div class="space-y-10 ">
+    <div class="container mx-auto my-3">
+        <mat-divider class="mb-4"></mat-divider>
+        <div>
+            <div class="mt-2">
+
+            <h2><strong>  تفاصيل السوق المحددة </strong> </h2>
+                <small>المعلومات المطلوبة للتسجيل في الأسواق المختلفة</small></div>
+            <mat-divider></mat-divider>
+        </div>
+        <div class="mt-4 max-w-lg mx-auto">
+        <div class="alert border border-indigo-600 ... flex bg-red-100 rounded-lg p-4 mb-4 text-sm text-red-700" role="alert">
+            <svg class="w-5 h-5 inline mr-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+            </svg>
+            <div>
+                <span class="font-medium">ترويج البيع العالمي</span> <br> Pay a monthly fee of 39.99 USD to access all marketplaces.
+            </div>
+        </div>
+        </div>
+        <form [formGroup]="checkbox">
+         <div class="mt-8">
+            <strong>السعودية</strong>
+            <p class="text">لا حاجة لمزيد من المعلومات </p>
+            <mat-card class="result">
+                <mat-card-content>
+                  <section class="example-section">
+                    <mat-checkbox
+                        class="example-margin"
+                        formControlName="checked1"
+                        [(indeterminate)]="indeterminate"
+                        [labelPosition]="labelPosition"
+                        [disabled]="disabled">
+                        حدد هذا المربع للتسجيل في السعودية
+                    </mat-checkbox>
+                  </section>
+                </mat-card-content>
+            </mat-card>
+        </div> 
+       
+        <mat-divider class="mb-4"></mat-divider>
+        
+        <div class="mt-2">
+            <strong>الإمارات</strong>
+            <p class="text">ا حاجة لمزيد من المعلومات</p>
+            <mat-card class="result">
+                <mat-card-content>
+                  <section class="example-section">
+                    <mat-checkbox
+                        class="example-margin"
+                        [(ngModel)]="checked2"
+                        [(indeterminate)]="indeterminate"
+                        [labelPosition]="labelPosition"
+                        [disabled]="disabled">
+                        حدد هذا المربع للتسجيل في الإمارات
+                    </mat-checkbox>
+                  </section>
+                </mat-card-content>
+            </mat-card>
+            <mat-divider class="mb-4"></mat-divider>
+        </div>
+        
+        <div class="mt-2">
+            <strong>دبي</strong>
+            <p class="text">ا حاجة لمزيد من المعلومات</p>
+            <mat-card class="result">
+                <mat-card-content>
+                  <section class="example-section">
+                    <mat-checkbox
+                        class="example-margin"
+                        [(ngModel)]="checked3"
+                        [(indeterminate)]="indeterminate"
+                        [labelPosition]="labelPosition"
+                        [disabled]="disabled">
+                        حدد هذا المربع للتسجيل في دبي
+                    </mat-checkbox>
+                  </section>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </form>
+        <mat-divider></mat-divider>
+    </div>
+
+
+  <mat-divider class="my-10 solid "></mat-divider>
+  <div class="mx-5">
+      <table>
+          <div class=" btn relative h-32 w-32">
+              <tr>
+       
+                  <td>
+                      <button (click)="marketPlace()" class="button " type="button" mat-stroked-button
+                          id="grey-button" mat-button >Next</button>
+
+                  </td>
+              </tr>
+          </div>
+      </table>
+  </div>
+
+  <mat-divider class="mtb-2 solid"></mat-divider>
+
+
+
+
+

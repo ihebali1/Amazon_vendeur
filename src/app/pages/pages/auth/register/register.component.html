@@ -1,0 +1,70 @@
+<div class="w-full h-full bg-pattern" fxLayout="column" fxLayoutAlign="center center">
+    <div @fadeInUp class="card overflow-hidden w-full max-w-xs max-w-xs-custom">
+        <div class="p-6 pb-0" fxLayout="column" fxLayoutAlign="center center">
+            <div class="fill-current text-center">
+                <img class="w-16" src="assets/img/demo/logo.svg">
+            </div>
+        </div>
+
+        <div class="text-center mt-4">
+            <h2 class="title m-0">قم بالتسجيل للحصول على حساب</h2>
+            <h4 class="body-2 text-secondary m-0">مجرد ملء الاستمارة أدناه</h4>
+        </div>
+
+        <div [formGroup]="form" (submit)="submit()" class="p-10" fxLayout="column" fxLayoutGap="16px">
+            <div fxFlex="auto" fxLayout="column">
+                <div class="example-container">
+                    <mat-form-field appearance="outline" floatLabel="always" fxFlex="grow">
+                        <mat-label>الاسم الشخصي</mat-label>
+                        <input class="example-right-align" formControlName="firstName" matInput required>
+                    </mat-form-field>
+                    </div>
+                    &nbsp;&nbsp;
+                    <div class="example-container">
+                    <mat-form-field appearance="outline" floatLabel="always" fxFlex="grow">
+                        <mat-label>اللقب</mat-label>
+                        <input class="example-right-align" formControlName="lastName" matInput required>
+                    </mat-form-field>
+            </div>
+            <div class="example-container">
+                    <mat-form-field appearance="outline" floatLabel="always" fxFlex="grow">
+                        <mat-label>البريد الإلكتروني</mat-label>
+                        <input class="example-right-align" formControlName="email" matInput required>
+                    </mat-form-field>
+&nbsp;&nbsp;
+</div>
+<div class="example-container">
+                    <mat-form-field appearance="outline" floatLabel="always" fxFlex="grow">
+                        <mat-label>رقم الهاتف</mat-label>
+                        <input class="example-right-align" formControlName="phone" matInput required>
+                    </mat-form-field>
+               </div>
+               <div class="example-container">
+                <mat-form-field appearance="outline" floatLabel="always" fxFlex="grow">
+                    <mat-label>كلمة المرور</mat-label>
+                    <input [type]="inputType" formControlName="password" matInput required>
+                    <button (click)="toggleVisibility()" mat-icon-button matSuffix matTooltip="Toggle Visibility"
+                            type="button">
+                        <mat-icon *ngIf="visible" [icIcon]="icVisibility"></mat-icon>
+                        <mat-icon *ngIf="!visible" [icIcon]="icVisibilityOff"></mat-icon>
+                    </button>
+                    <mat-hint>انقر فوق العين لتبديل الرؤية</mat-hint>
+                </mat-form-field>
+                </div>
+            
+
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="center center">
+                <mat-checkbox class="caption">أقبل <a>الأحكام والشروط.</a></mat-checkbox>
+            </div>
+            <button (click)="submit()" color="primary" mat-raised-button type="button">
+                إنشاء حساب
+            </button>
+            <p class="text-secondary text-center">
+                هل لديك حساب؟<br/>
+                <a [routerLink]="['/login']">تسجيل الدخول هنا</a>
+            </p>
+        </div>
+    </div>
+</div>

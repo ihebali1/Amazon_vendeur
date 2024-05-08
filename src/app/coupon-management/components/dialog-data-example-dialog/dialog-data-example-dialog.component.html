@@ -1,0 +1,56 @@
+<h1 mat-dialog-title>قائمة الاختلاف</h1>
+<div mat-dialog-content>
+
+
+    <div class="mat-elevation-z8 ">
+        <table mat-table [dataSource]="dataSource" matSort>
+
+            <!--- Note that these columns can be defined in any order.
+              The actual rendered columns are set as a property on the row definition" -->
+
+            <!-- Position Column -->
+            <ng-container matColumnDef="quantity">
+                <th mat-header-cell *matHeaderCellDef> السعر </th>
+                <td mat-cell *matCellDef="let element"> {{element.variationQuantity}} </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="condition">
+                <th mat-header-cell *matHeaderCellDef> الكمية</th>
+                <td mat-cell *matCellDef="let element"> {{element.variationCondition}} </td>
+
+            </ng-container>
+            <ng-container matColumnDef="price">
+                <th mat-header-cell *matHeaderCellDef> الحالة</th>
+                <td mat-cell *matCellDef="let element"> {{element.variationPrice}} </td>
+
+            </ng-container>
+            <ng-container matColumnDef="add">
+                <th mat-header-cell *matHeaderCellDef>إضافة</th>
+                <td mat-cell *matCellDef="let element">
+                    <button *ngIf="isSelected(element)" (click)="addProduct(element)" mat-button color="primary">
+                        <mat-icon>add</mat-icon>
+                    </button>
+                    <button *ngIf="!isSelected(element)" (click)="removeProduct(element)" mat-button color="primary">
+                        <mat-icon>maximize</mat-icon>
+                          </button>
+                </td>
+            </ng-container>
+
+
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="pageSize" aria-label="Select page of users"></mat-paginator>
+    </div>
+
+    <div mat-dialog-actions>
+        <button mat-button [mat-dialog-close]="selectedProducts">Cancel</button>
+        <button mat-button [mat-dialog-close]="data.selectedProducts" cdkFocusInitial>Ok</button>
+    </div>
+
+</div>

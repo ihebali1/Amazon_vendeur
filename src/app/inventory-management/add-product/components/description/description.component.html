@@ -1,0 +1,91 @@
+<div class="p-10">
+
+    <div>
+
+        <div>
+            <label class="font-bold">وصف المنتج</label>
+        </div>
+        <div class="col-span-6">
+            <div class="flex flex-row gap-4">
+                <mat-form-field class="example-form-field" appearance="outline">
+                    <mat-label>وصف المنتج</mat-label>
+
+                    <textarea (input)="onInputChange($event.target.value)" [(ngModel)]="productDescription" matInput type="text">
+                    </textarea>
+                    <span matPrefix>&nbsp;</span>
+                </mat-form-field>
+
+            </div>
+        </div>
+
+        <div>
+            <label class="font-bold">ميزات المنتج الرئيسية</label>
+        </div>
+        <div class="col-span-6">
+            <div *ngFor="let feature of features; let i = index" class="flex flex-row gap-4">
+                <mat-form-field class="example-form-field" appearance="outline">
+                    <mat-label>ميزات المنتج الرئيسية</mat-label>
+                    <textarea (input)="onInputChange($event.target.value)" [(ngModel)]="features[i]" matInput type="text" placeholder="">
+                        </textarea>
+
+                </mat-form-field>
+            </div>
+            <div class="flex flex-row gap-4">
+                <button (click)="addInput()" style="font-size: 20px;" class=" text-sm font-bold rounded">
+              +
+            </button>
+                <button *ngIf=" features.length > 1" (click)="removeInput()" style="font-size: 20px;" class=" text-sm font-bold rounded">
+              -
+            </button>
+            </div>
+        </div>
+        <div>
+            <label class="font-bold">إخلاء المسؤولية القانونية</label>
+        </div>
+        <div class="col-span-6">
+            <div class="flex flex-row gap-4">
+                <mat-form-field class="example-form-field" appearance="outline">
+                    <mat-label>إخلاء المسؤولية القانونية</mat-label>
+
+                    <input (input)="onInputChange($event.target.value)" [(ngModel)]="productLegal" matInput type="text">
+                    <span matPrefix>&nbsp;</span>
+                </mat-form-field>
+
+            </div>
+        </div>
+
+        <div>
+            <label class="font-bold">تحذير</label>
+        </div>
+        <div class="col-span-6">
+            <div *ngFor="let warning of warnings; let i = index" class="flex flex-row gap-4">
+                <mat-form-field class="example-form-field" appearance="outline">
+                    <mat-select [(value)]="warnings[i]" (selectionChange)="onChange($event.value)">
+         
+                        <mat-option value="ChokingHazardContainsAMarble">خطر الاختناق يحتوي على رخام</mat-option>
+                        <mat-option value="ChokingHazardIsASmallBall">خطر الاختناق هو كرة صغيرة</mat-option>
+                        <mat-option value="ChokingHazardIsAMarble">خطر الاختناق عبارة عن رخام</mat-option>
+                        <mat-option value="ChokingHazardContainsSmallBall">خطر الاختناق يحتوي على كرة صغيرة</mat-option>
+                        <mat-option value="ChokingHazardBalloon">بالون خطر الاختناق</mat-option>
+                        <mat-option value="NoWarningApplicable">لا يوجد تحذير مطبق</mat-option>
+                        <mat-option value="ContainsSmallMagnets">يحتوي على مغناطيسات صغيرة</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="flex flex-row gap-4">
+                <button (click)="addWarning()" color="primary" mat-raised-button class="font-bold rounded">
+              +
+            </button>
+                <button *ngIf=" warnings.length > 1" (click)="removeWarning()" color="primary" mat-raised-button class="font-bold rounded">
+              -
+            </button>
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+
+</div>

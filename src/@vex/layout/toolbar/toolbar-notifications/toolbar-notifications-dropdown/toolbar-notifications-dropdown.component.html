@@ -1,0 +1,50 @@
+<div class="dropdown">
+  <div class="dropdown-header" fxLayout="row" fxLayoutAlign="space-between center">
+    <div>
+      <div class="dropdown-heading">إشعارات</div>
+      <div *ngIf="userNotifications" class="dropdown-subheading">لديك {{getUnseenNotification()}} من الإشعارات الجديدة.</div>
+    </div>
+
+    <button [matMenuTriggerFor]="settingsMenu" mat-icon-button type="button">
+      <mat-icon [icIcon]="icSettings" class="notifications-header-icon"></mat-icon>
+    </button>
+  </div>
+
+  <div class="dropdown-content">
+    <a *ngFor="let notif of userNotifications; trackBy: trackById"
+       [class.read]="notif.isSeen"
+       [routerLink]="[]"
+       (click)="redirect(notif);updateNotificationStatus(notif.id);"
+       class="notification"
+       fxLayout="row"
+       fxLayoutAlign="start center"
+       matRipple>
+       <ic-icon *ngIf="notif.icon && notif.colorClass" [icon]="notif.icon"
+       [ngClass]="notif.colorClass"
+       class="notification-icon"
+       fxFlex="none"
+       size="24px"></ic-icon>
+      <div fxFlex="auto">
+        <div class="notification-label">{{ notif.notification.arTitle }}</div>
+        <div class="notification-content">{{ notif.notification.arContent }}</div>
+        <div class="notification-description">{{ notif.createdAt | relativeDateTime }}</div>
+      </div>
+      <mat-icon [icIcon]="icChevronRight" class="notification-chevron" fxFlex="none"></mat-icon>
+    </a>
+  </div>
+
+  <div class="dropdown-footer" fxLayout="row" fxLayoutAlign="center center">
+
+  </div>
+</div>
+
+<mat-menu #settingsMenu="matMenu" xPosition="before" yPosition="below">
+  <button mat-menu-item>
+    <mat-icon [icIcon]="icClearAll"></mat-icon>
+    <span>
+      اشر عليها بانها قرات
+    </span>
+  </button>
+
+  
+</mat-menu>

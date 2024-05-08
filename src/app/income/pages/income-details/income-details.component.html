@@ -1,0 +1,82 @@
+
+
+<div class="bg-white p-3 shadow-sm rounded-sm">
+    <div class="flex items-center space-x-2 font-semibold text-gray-900 leading-8">
+
+        <span class="tracking-wide">معلومات حول الدخل</span>
+    </div>
+    <br>
+    <hr>
+    <br>
+    <mat-progress-spinner *ngIf="spinner" style="margin:0 auto;"
+                         mode="indeterminate"></mat-progress-spinner>
+    <div *ngIf="!spinner"  class="text-gray-700">
+        <div class="grid md:grid-cols-2 text-sm">
+            <div class="grid grid-cols-2">
+                <div class="px-4 py-2 font-semibold">المبلغ</div>
+                <div class="px-4 py-2">{{data.amount}} (RSA)</div>
+            </div>
+            <div class="grid grid-cols-2">
+                <div class="px-4 py-2 font-semibold">الحالة</div>
+                <div class="px-4 py-2">
+                    <div *ngIf="data.status === 'CONFIRMED'"  style="color : green" >
+
+                        دخل مؤكد
+                        </div>
+                    <div *ngIf="data.status === 'PENDING'"
+                       style="color : orange"  >
+
+                            قيد الانتظار
+                      </div>
+
+               
+
+                    <div *ngIf="data.status === 'REFUNDED'"  style="color : red"
+                    >
+
+                    تم إلغاء الدخل
+                     </div>
+                </div>
+            </div>
+            <div class="grid grid-cols-2">
+                <div class="px-4 py-2 font-semibold">  إجمالي سعر المنتجات</div>
+                <div class="px-4 py-2">
+                    <a class="text-blue-800" >{{data.order?.totalPrice}} (RSA)</a>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2">
+                <div class="px-4 py-2 font-semibold"> تاريخ الدخل</div>
+                <div class="px-4 py-2">
+                    <a class="text-blue-800" >{{data.order?.createdAt | date : 'short'}}</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+<div *ngIf="!spinner" >
+    <h2>المنتوجات</h2>
+    <table dir="rtl">
+        <tr>
+            <th>اسم</th>
+            <th>كمية</th>
+            <th>سعر السلعة</th>
+            <th>أنشئت في</th>
+            <th>تم التحديث في</th>
+        </tr>
+        <tr *ngFor="let product of products">
+            <td>{{product.product.name}}</td>
+            <td>{{product.quantity}}</td>
+            <td>{{product?.itemPrice}}</td>
+            <td>{{product?.createdAt  | date : 'short'}}</td>
+            <td>{{product?.updatedAt  | date : 'short'}}</td>
+        </tr>
+
+    </table>
+</div>
+
+
+<br>
+<button mat-button (click)="closeDiag()" >خروج </button>

@@ -1,0 +1,168 @@
+<div class="p-10">
+    <mat-card>
+        <mat-tab-group>
+            <mat-stepper [linear]="isLinear" #stepper>
+                <mat-step label="  قائمة المنتجات">
+                    <form [formGroup]="secondFormGroup">
+                        <vex-list (products)="updateProducts($event)"> </vex-list>
+                        <div class="my-5">
+
+                            <button [disabled]="addedList.length == 0" mat-flat-button matStepperNext color="primary">التالي</button>
+                        </div>
+
+                    </form>
+                </mat-step>
+
+                <mat-step label="   قائمة المنتجات المحددة ">
+                    <div class="mat-elevation-z1 mt-5  ">
+                        <section class="antialiased bg-gray-100 text-gray-600 ">
+                            <div class="flex flex-col justify-center h-full">
+                                <!-- Table -->
+                                <div class="w-full max-w-2xl  bg-white rounded-sm border border-gray-200">
+                                    <header class="px-5 py-4 border-b border-gray-100">
+                                        <h2 class="font-semibold text-gray-800">قائمة المنتجات</h2>
+                                    </header>
+                                    <div class="p-3">
+                                        <div class="overflow-x-auto">
+                                            <table class="table-auto w-full">
+                                                <thead class="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
+                                                    <tr>
+                                                        <th class="p-2 whitespace-nowrap">
+                                                            <div class="font-semibold text-right">اسم المنتج</div>
+                                                        </th>
+                                                        <th class="p-2 whitespace-nowrap">
+                                                            <div class="font-semibold text-right">معرف المنتج</div>
+                                                        </th>
+                                                        <th class="p-2 whitespace-nowrap">
+                                                            <div class="font-semibold text-right">نوع معرف</div>
+                                                        </th>
+                                                        <th class="p-2 whitespace-nowrap">
+                                                            <div class="font-semibold text-right">مسح</div>
+                                                        </th>
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="text-sm divide-y divide-gray-100">
+                                                    <tr *ngFor="let p of  addedList">
+                                                        <td class="p-2 whitespace-nowrap">
+                                                            <div class="flex items-center">
+
+                                                                <div class="font-medium text-gray-800">
+                                                                    {{p.name}}
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td class="p-2 whitespace-nowrap">
+                                                            <div class="flex items-center">
+
+                                                                <div class="font-medium text-gray-800">
+                                                                    {{p.productId}}
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td class="p-2 whitespace-nowrap">
+                                                            <div class="flex items-center">
+
+                                                                <div class="font-medium text-gray-800">
+                                                                    {{p.productIdType}}
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td class="p-2 whitespace-nowrap">
+                                                            <button (click)="removeProduct(p)" mat-button color="primary">
+                                                                <mat-icon>maximize</mat-icon>
+                                                                 </button>
+                                                        </td>
+
+                                                    </tr>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="my-5 mx-2">
+                                    <button class="ml-2" mat-flat-button matStepperPrevious color="primary">
+                                    الرجوع لقائمة المنتجات
+                                </button>
+                                    <button mat-flat-button matStepperNext color="primary">التالي</button>
+                                </div>
+
+
+                            </div>
+                        </section>
+                    </div>
+                </mat-step>
+                <mat-step>
+                    <form [formGroup]="firstFormGroup" (ngSubmit)="createCoupon()">
+                        <ng-template matStepLabel> تفاصيل قسيمة</ng-template>
+                        <div class="w-ful mx-auto bg-white p-16">
+                            <div class="grid gap-6 mb-6 lg:grid-cols-2">
+                                <div>
+                                    <label for="company" *ngIf=" f['title'].errors" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">إسم</label>
+                                    <input formControlName="title" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        placeholder="إسم" [ngClass]="{ 'is-invalid': submitted && f['discount'].errors }" required>
+                                    <div *ngIf="f['title'].errors"> الرجاء إدخال إسم </div>
+                                </div>
+                                <div>
+                                    <label *ngIf=" f['budget'].errors" for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">الميزانية</label>
+                                    <input formControlName="budget" type="number" required [ngClass]="{ 'is-invalid': submitted && f['budget'].errors }" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        placeholder="الميزانية" required>
+                                    <div class="invalid-feedback">
+                                        <div *ngIf="f['budget'].errors"> الرجاء إدخال الميزانية</div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label for="first_name" *ngIf=" f['startDate'].errors" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">تاريخ بدء</label>
+                                    <input formControlName="startDate" type="date" min="{{date | date:'yyyy-MM-dd'}}" required [ngClass]="{ 'is-invalid': submitted && f['startDate'].errors }" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        required>
+                                    <div *ngIf="f['startDate'].errors">الرجاء إدخال تاريخ بدء </div>
+                                </div>
+                                <div>
+                                    <label for="first_name" *ngIf=" f['endDate'].errors" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">تاريخ الإنتهاء</label>
+                                    <input formControlName="endDate" type="date" min="{{date | date:'yyyy-MM-dd'}}" max="{{maxDate | date:'yyyy-MM-dd'}}" required [ngClass]="{ 'is-invalid': submitted && f['endDate'].errors }" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        required>
+                                    <div *ngIf="f['endDate'].errors">
+                                        <label>   حدد مدة الكوبون الخاص بك بين 1-90 يومًا</label> الرجاء إدخال تاريخ إنتهاء</div>
+
+                                </div>
+                                <div>
+                                    <label for="company" *ngIf=" f['discount'].errors" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">المبلغ</label>
+                                    <input formControlName="discount" type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        placeholder="المبلغ" [ngClass]="{ 'is-invalid': submitted && f['discount'].errors }" required>
+                                    <div *ngIf="f['discount'].errors"> الرجاء إدخال المبلغ </div>
+                                </div>
+                                <div>
+                                    <label *ngIf=" f['type'].errors" bel="Select an option" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">فئة</label>
+                                    <mat-radio-group formControlName="type" [ngClass]="{ 'is-invalid': submitted && f['type'].errors }">
+                                        <mat-radio-button color="primary" value="POURCENTAGE">نسبة مئوية</mat-radio-button>
+                                        <mat-radio-button color="primary" value="MONEYOFF">تخفيض</mat-radio-button>
+                                    </mat-radio-group>
+                                </div>
+                                <div>
+                                    <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">تقييد الإستخدام</label>
+                                    <input formControlName="redemptionLimit" type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        placeholder="">
+
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                    <div class="mt-5">
+
+                        <button class="mx-2" (click)="createCoupon()" type="submit" mat-flat-button color="primary">حفظ</button>
+                        <mat-spinner *ngIf="loading"></mat-spinner>
+                        <button mat-flat-button matStepperPrevious color="primary">
+                                        الرجوع لقائمة المنتجات
+                                    </button>
+
+                    </div>
+
+
+                </mat-step>
+
+            </mat-stepper>
+        </mat-tab-group>
+    </mat-card>
+</div>

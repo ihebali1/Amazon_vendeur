@@ -1,0 +1,31 @@
+<div class="card">
+  <div class="border-b py-4 px-6" fxLayout="row" fxLayoutAlign="start center">
+    <h2 class="m-0 title" fxFlex="auto">نظرة عامة على الدخل</h2>
+
+   
+  </div>
+
+  <div class="py-6 px-6" fxLayout="row" fxLayout.lt-md="column">
+    <div class="pb-6 pt-4 px-6" fxFlex="auto" fxLayout="column">
+      <h2 class="display-2 font-bold m-0">{{ total }} دينار</h2>
+      <h3 class="title font-medium mt-2 mb-0">
+        دخل آخر 7 أيام
+      </h3>
+
+
+   
+
+      <div class="mt-6" fxFlex="auto" fxLayout="column" fxLayoutAlign="end">
+        <button color="primary" 
+        [routerLink]="['/income/list']"
+        mat-raised-button type="button">
+          راجع سجل الدخل
+        </button>
+      </div>
+    </div>
+
+    <div fxFlex="50%" fxFlexOffset="48px">
+      <vex-chart [options]="options" [series]="series"></vex-chart>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,165 @@
+<div class="md:p-10">
+    <div>
+        <div>
+            <label class="font-bold">موضوع الاختلاف</label>
+        </div>
+        <div class="col-span-6">
+            <div class="flex flex-row gap-4">
+                <mat-form-field class="example-form-field" appearance="outline">
+                    <mat-label></mat-label>
+                    <mat-select [(ngModel)]="selectedVariationTheme" (selectionChange)="onChangeValue($event.value)">
+                        <mat-option *ngFor="let vt of childCategory.variationThemes" [value]="vt">
+                            {{vt.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div *ngIf="selectedVariationTheme">
+            <label>الاختلافات</label>
+        </div>
+        <div *ngIf="selectedVariationTheme" class="col-span-6">
+            <div *ngFor="let productVariation of variations; let i = index" class="flex flex-row gap-4">
+                <mat-form-field *ngFor="let item of productVariation; let j = index" class="example-form-field" appearance="outline">
+                    <mat-label>
+                        {{item.attribute.arKey}}
+                    </mat-label>
+                    <input *ngIf="item.attribute.type=='SINGLE_CHOICE'" matInput [(ngModel)]="item.value" type="text">
+                    <mat-select *ngIf="item.attribute.type=='MULTIPLE_CHOICES'" [(ngModel)]="item.value">
+                        <mat-option *ngFor="let choice of item.attribute.attributeChoices" [value]="choice">{{choice.value}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <button *ngIf="i < variations.length -1" (click)="decreaseProductCount(i)" mat-mini-fab color="accent" aria-label="Example icon button with a plus one icon" color="primary" mat-raised-button class="font-bold rounded">
+          <mat-icon>-</mat-icon>
+        </button>
+                <button *ngIf="i == variations.length -1" (click)="increaseProductCount()" mat-mini-fab color="accent" aria-label="Example icon button with a plus one icon" color="primary" mat-raised-button class="font-bold rounded">
+          <mat-icon>+</mat-icon>
+        </button>
+            </div>
+        </div>
+
+    </div>
+
+    <button *ngIf="selectedVariationTheme && variations.length>1" class="btn" (click)="addVariations()"><span>
+    {{addOrUpdateTextButton}}
+  </span> </button>
+    <mat-divider></mat-divider>
+    <div *ngIf="productList.length>0 && variations.length>1" class="flex flex-row gap-4">
+        <table id="data">
+            <th *ngFor="let column of tableColumns">
+                {{column.header}}
+            </th>
+            <tr *ngFor="let row of productList; let i = index">
+                <td>
+                    <mat-form-field class="example-form-field" appearance="outline">
+                        <mat-label>
+                            {{ row['productId'] }}
+                        </mat-label>
+                        <input (input)="onInputChange($event.target.value)" matInput [(ngModel)]="row['productId']" type="text">
+                        <label>
+            
+            </label>
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field class="example-form-field" appearance="outline">
+                        <mat-label>
+                            {{ row['productIdType'] }}
+                        </mat-label>
+
+                        <mat-select (selectionChange)="onSelectChange($event.value)" [(ngModel)]="row['productIdType']">
+                            <mat-option value="GTIN">
+                                GTIN
+                            </mat-option>
+                            <mat-option value="EAN">
+                                EAN
+                            </mat-option>
+                            <mat-option value="GCID">
+                                GCID
+                            </mat-option>
+                            <mat-option value="ISBN">
+                                ISBN
+                            </mat-option>
+                            <mat-option value="UPC">
+                                UPC
+                            </mat-option>
+                            <mat-option value="ASIN">
+                                ASIN
+                            </mat-option>
+                        </mat-select>
+                        <label>
+            
+            </label>
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field class="example-form-field" appearance="outline">
+                        <mat-label>
+                            {{ row['variationPrice'] }}
+                        </mat-label>
+                        <input matInput (input)="onInputChange($event.target.value)" [(ngModel)]="row['variationPrice']" type="number">
+                        <label>
+            
+            </label>
+                    </mat-form-field>
+                </td>
+
+                <td>
+                    <mat-form-field class="example-form-field" appearance="outline">
+                        <mat-label>
+                            {{ row['variationQuantity'] }}
+                        </mat-label>
+                        <input matInput (input)="onInputChange($event.target.value)" [(ngModel)]="row['variationQuantity']" type="number">
+                        <label>
+            
+            </label>
+                    </mat-form-field>
+                </td>
+
+                <td>
+                    <mat-form-field class="example-form-field" appearance="outline">
+                        <mat-label>
+                            {{ row['condition'] }}
+                        </mat-label>
+                        <mat-select (selectionChange)="onSelectChange($event.value)" [(ngModel)]="row['condition']">
+                            <mat-option value="USED_GOOD">
+                                مستعمل - جيد
+                            </mat-option>
+                            <mat-option value="USER_LIKE_NEW">
+                                مستعملة - كالجديد
+                            </mat-option>
+                            <mat-option value="NEW">
+                                جديد
+                            </mat-option>
+                            <mat-option value="USED_VER_GOOD">
+                                مستعمل - جيد جدا
+                            </mat-option>
+                            <mat-option value="USED_ACCEPTABLE">
+                                مستخدم - مقبول
+                            </mat-option>
+                        </mat-select>
+                        <label>
+            
+            </label>
+                    </mat-form-field>
+                </td>
+
+                <td *ngFor="let item of row">
+                    <mat-form-field class="example-form-field" appearance="outline">
+
+                        <input matInput hidden="true" type="text">
+                        <input readonly (input)="onInputChange($event.target.value)" [(ngModel)]="item.value " matInput type="text">
+
+                        <label>
+            
+            </label>
+                    </mat-form-field>
+
+
+                </td>
+            </tr>
+
+        </table>
+    </div>
+</div>

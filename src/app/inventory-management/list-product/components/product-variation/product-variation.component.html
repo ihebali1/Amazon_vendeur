@@ -1,0 +1,182 @@
+<div class="card bg-white p-5 shadow-sm border border-gray-200 rounded-lg">
+
+    <div class=" mx-auto">
+
+        <div class="flex flex-col">
+        <div class="overflow-x-auto shadow-md sm:rounded-lg">
+            <div class="inline-block min-w-full align-middle">
+                <div class="overflow-hidden ">
+                    <table class="min-w-full divide-y divide-gray-200 table-auto dark:divide-gray-700">
+                        <thead class="bg-gray-100 dark:bg-gray-700">
+                            <tr>
+                               
+                                <th scope="col"  *ngFor="let column of tableColumns" class="py-3 text-xs font-medium tracking-wider text-right text-gray-700 uppercase dark:text-gray-400">
+                                    {{column.header}}
+                                </th>
+                                <th scope="col" ></th>
+                           
+                                <th scope="col" ></th>
+                               
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
+                            <tr  *ngFor="let v of productInfo.variations" class="hover:bg-gray-100 dark:hover:bg-gray-700">
+                            
+                        
+                                <td class="py-4  text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    <mat-form-field class="example-form-field" appearance="outline">
+                                        <mat-label>
+                                            <input readonly="true" *ngIf="productInfo.isApproved == true"  matInput [(ngModel)]="v.productId" type="text">
+                                            <input  *ngIf="productInfo.isApproved == false"  matInput [(ngModel)]="v.productId" type="text">
+                                        </mat-label>
+                                        <label>
+                
+                                        </label>
+                                    </mat-form-field>
+                                </td>
+                                <td class="py-4  text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    <mat-form-field class="example-form-field" appearance="outline">
+                                        <mat-label>
+                
+                                            <mat-select disabled *ngIf="productInfo.isApproved == true" [(ngModel)]="v.productIdType">
+                                                <mat-option value="GTIN">
+                                                    GTIN
+                                                </mat-option>
+                                                <mat-option value="EAN">
+                                                    EAN
+                                                </mat-option>
+                                                <mat-option value="GCID">
+                                                    GCID
+                                                </mat-option>
+                                                <mat-option value="ISBN">
+                                                    ISBN
+                                                </mat-option>
+                                                <mat-option value="UPC">
+                                                    UPC
+                                                </mat-option>
+                                                <mat-option value="ASIN">
+                                                    ASIN
+                                                </mat-option>
+                                            </mat-select>
+
+                                            <mat-select *ngIf="productInfo.isApproved == false" [(ngModel)]="v.productIdType">
+                                                <mat-option value="GTIN">
+                                                    GTIN
+                                                </mat-option>
+                                                <mat-option value="EAN">
+                                                    EAN
+                                                </mat-option>
+                                                <mat-option value="GCID">
+                                                    GCID
+                                                </mat-option>
+                                                <mat-option value="ISBN">
+                                                    ISBN
+                                                </mat-option>
+                                                <mat-option value="UPC">
+                                                    UPC
+                                                </mat-option>
+                                                <mat-option value="ASIN">
+                                                    ASIN
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-label>
+                                        <label>
+                
+                                        </label>
+                                    </mat-form-field>
+                                </td>
+                                <td class="py-4  text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    <mat-form-field class="example-form-field" appearance="outline">
+                                        <mat-label>
+                                            <mat-select disabled *ngIf="productInfo.isApproved == true" [(ngModel)]="v.condition">
+                                                <mat-option value="USED_GOOD">
+                                                    مستعمل - جيد
+                                                </mat-option>
+                                                <mat-option value="USER_LIKE_NEW">
+                                                    مستعملة - كالجديد
+                                                </mat-option>
+                                                <mat-option value="NEW">
+                                                    جديد
+                                                </mat-option>
+                                                <mat-option value="USED_VER_GOOD">
+                                                    مستعمل - جيد جدا
+                                                </mat-option>
+                                                <mat-option value="USED_ACCEPTABLE">
+                                                    مستخدم - مقبول
+                                                </mat-option>
+                                            </mat-select>
+
+                                            <mat-select *ngIf="productInfo.isApproved == false" [(ngModel)]="v.condition">
+                                                <mat-option value="USED_GOOD">
+                                                    مستعمل - جيد
+                                                </mat-option>
+                                                <mat-option value="USER_LIKE_NEW">
+                                                    مستعملة - كالجديد
+                                                </mat-option>
+                                                <mat-option value="NEW">
+                                                    جديد
+                                                </mat-option>
+                                                <mat-option value="USED_VER_GOOD">
+                                                    مستعمل - جيد جدا
+                                                </mat-option>
+                                                <mat-option value="USED_ACCEPTABLE">
+                                                    مستخدم - مقبول
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-label>
+                                        <label>
+                
+                                        </label>
+                                    </mat-form-field>
+                                </td>
+                                <td class="py-4  text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    <mat-form-field class="example-form-field" appearance="outline">
+                                        <mat-label>
+                                            <input matInput [(ngModel)]="v.price" type="text">
+                
+                                        </mat-label>
+                
+                                    </mat-form-field>
+                                </td>
+                                <td class="py-4  text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    <mat-form-field class="example-form-field" appearance="outline">
+                                        <mat-label>
+                                            <input matInput [(ngModel)]="v.quantity" type="text">
+                                        </mat-label>
+                                        <label>
+                
+                                        </label>
+                                    </mat-form-field>
+                                </td>
+                              
+                              
+        
+                         
+                           
+        
+                                <td>
+                                    <button (click)="openVariationDialog(v)" color="secondary" mat-raised-button
+                                    class="font-bold rounded mx-2"> الإختلافات</button>
+                                </td>
+
+                                
+
+                                <td>
+                                    
+                                <button (click)="updateVariation(v.id,v)" color="primary" mat-raised-button
+                                class="font-bold rounded">تحديث</button>
+                                </td>
+                            </tr>
+                           
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+        
+    </div>
+    
+
+</div>

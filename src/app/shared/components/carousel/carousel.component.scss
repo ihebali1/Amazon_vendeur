@@ -1,0 +1,70 @@
+
+
+.img-container {
+    padding: 25px;
+    width: 350px;
+    justify-content: flex-end;
+    
+    &_item {
+        position: relative;
+        
+        img {
+            width: 100px !important;
+            height: 100px !important;
+            border-radius: 10px;
+            margin: 30px;
+
+        }
+        
+    }
+
+    &_add {
+        
+        button {
+
+            background-image: url("../../../../assets/img/placeholder.png");
+            background-repeat: no-repeat;
+            width: 100px !important;
+            height: 100px !important;
+            border-radius: 10px;
+            border: 1px dashed black !important;
+            outline: none !important;
+            cursor: pointer;
+            position: relative;
+            background-size: cover;
+            background-position-x: center;
+            opacity: .6;
+            
+            &::before {
+                content: "+";
+                position: absolute;
+                top: 17px;
+                left: 22px;
+                font-size: 30px;
+                font-weight: 700;
+                opacity: .7;
+            }
+        }
+       
+        
+       
+    }
+
+    .remove {
+        cursor: pointer;
+        &::before {
+            content: "✘";
+            position: absolute;
+            background-color: blue;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            color: white;
+            font-weight: 800;
+            left: 93px;
+            padding-right: 6px;
+            top: -9px;
+            padding-top: 2px;
+        }
+    }
+}

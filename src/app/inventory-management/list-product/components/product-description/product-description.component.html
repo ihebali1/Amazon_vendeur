@@ -1,0 +1,116 @@
+<div class="card p-10 bg-white shadow-sm border border-gray-200 rounded-lg">
+    <div class="grid grid-cols-12 gap-4">
+        <div>
+            <label>وصف المنتج</label>
+        </div>
+        <div class="col-span-11">
+        
+            <div class="flex flex-row gap-4">
+                <mat-form-field class="w-full" appearance="outline">
+                    <mat-label></mat-label>
+                    <textarea   readonly="true"
+                    *ngIf="productInfo.isApproved == true" matInput [(ngModel)]="productInfo.description" type="text"></textarea>
+                    <textarea   
+                    *ngIf="productInfo.isApproved == false" matInput [(ngModel)]="productInfo.description" type="text"></textarea>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div>
+            <label>ميزات المنتج الرئيسية</label>
+        </div>
+        <div class="col-span-11">
+            <div *ngFor="let feature of productInfo.features" class="flex flex-row gap-4">
+                <mat-form-field class="w-full"appearance="outline">
+                    <mat-label></mat-label>
+                    <input matInput readonly="true"
+                    *ngIf="productInfo.isApproved == true" [(ngModel)]="feature.value" type="text" />
+
+                    <input matInput 
+                    *ngIf="productInfo.isApproved == false" [(ngModel)]="feature.value" type="text" />
+
+                </mat-form-field>
+                <button  *ngIf="productInfo.isApproved == false"   (click)="removeFeature(feature.id)" style="font-size: 20px;" class=" text-sm font-bold rounded">
+          -
+        </button>
+            </div>
+            <div class="flex flex-row gap-4"  *ngIf="productInfo.isApproved == false" >
+                <mat-form-field class="w-full" appearance="outline">
+                    <mat-label></mat-label>
+             
+                    <input 
+                    matInput [(ngModel)]="newFeature" type="text" />
+                </mat-form-field>
+ 
+                <button  *ngIf="productInfo.isApproved == false"  (click)="addFeature()" style="font-size: 20px;" class=" text-sm font-bold rounded">
+                    +
+                  </button>
+            </div>
+
+        </div>
+
+        <div>
+            <label>إخلاء المسؤولية القانونية</label>
+        </div>
+        <div class="col-span-11">
+            <div class="flex flex-row gap-4">
+                <mat-form-field class="w-1/2" appearance="outline">
+                    <mat-label></mat-label>
+                    <input matInput  
+                    *ngIf="productInfo.isApproved == false" [(ngModel)]="productInfo.legalDisclaimer" type="text" />
+                    <input matInput  readonly="true"
+                    *ngIf="productInfo.isApproved == true" [(ngModel)]="productInfo.legalDisclaimer" type="text" />
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div>
+            <label>تحذير</label>
+        </div>
+        <div class="col-span-11">
+            <div *ngFor="let warning of productInfo.warnings" class="flex flex-row gap-4">
+                <mat-form-field class="w-1/2" appearance="outline">
+   
+                    <input readonly matInput [(ngModel)]="warning.value" type="text" />
+                </mat-form-field>
+                <button
+                *ngIf="productInfo.isApproved == false" (click)="removeWarning(warning.id)" style="font-size: 20px;" class=" text-sm font-bold rounded">-</button>
+
+            </div>
+
+            <div class="flex flex-row gap-4"  *ngIf="productInfo.isApproved == false" >
+                <mat-form-field class="w-1/2" appearance="outline">
+                    <mat-label></mat-label>
+                    <mat-select [formControl]="warningControl">
+                        <mat-label>Select</mat-label>
+                        <mat-option value="ChokingHazardContainsAMarble">ChokingHazardContainsAMarble</mat-option>
+                        <mat-option value="ChokingHazardIsASmallBall">ChokingHazardIsASmallBall</mat-option>
+                        <mat-option value="ChokingHazardIsAMarble">ChokingHazardIsAMarble</mat-option>
+                        <mat-option value="ChokingHazardContainsSmallBall">ChokingHazardContainsSmallBall</mat-option>
+                        <mat-option value="ChokingHazardBalloon">ChokingHazardBalloon</mat-option>
+                        <mat-option value="NoWarningApplicable">NoWarningApplicable</mat-option>
+                        <mat-option value="ContainsSmallMagnets">ContainsSmallMagnets</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <button (click)="addWarning()" style="font-size: 20px;" class=" text-sm font-bold rounded">
+                                        +
+                                      </button>
+            </div>
+
+        </div>
+    </div>
+
+    <mat-divider class="my-2"></mat-divider>
+
+    
+    <div class="basis-1/4">
+        <div class="flex flex-row gap-4">
+            <button  *ngIf="productInfo.isApproved == false" (click)="updateDescription()" color="primary" mat-raised-button class="font-bold rounded">
+        تحديث
+      </button>
+      <button  *ngIf="productInfo.isApproved == true" disabled (click)="updateDescription()" color="primary" mat-raised-button class="font-bold rounded">
+        تحديث
+      </button>
+        </div>
+    </div>
+</div>

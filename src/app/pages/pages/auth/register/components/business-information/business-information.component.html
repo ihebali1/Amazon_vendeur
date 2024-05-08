@@ -1,0 +1,117 @@
+<div class="page-container content  w-full h-full bg-pattern" >
+    <div @fadeInUp class="card  w-full">
+        <div  *ngIf="vendorInfo" dir="ltr">
+
+            <div class="card content w-full h-full flex flex-row justify-center">
+                <mat-divider></mat-divider>
+                <div class="basis-5/7">
+                    <div class="space-y-10 ">
+                        <div class="container mx-auto my-3">
+        
+                            <div>
+                                <h1>معلومات الشركة</h1>
+        
+                                <h5> نحن نطلب معلومات أو وثائق إضافية في وقت لاحق</h5>
+                            </div>
+        
+                        </div>
+                        <div class="container mx-auto w-80">
+        
+                            <div class="grid grid-cols-4 gap-4 mb-2">
+                                <div class="text-center">
+                                    <img [src]="imageSrc" class="w-24 h-16 rounded-full mx-auto mb-2" />
+                                    <label class="font-bold">عنوان العمل </label>
+                                </div>
+                                <div class="text-center space-y-5">
+                                    <img [src]="imageSrc2" class="w-24 h-16 rounded-full mx-auto mb-2" />
+                                    <label class="font-bold">رقم الهاتف</label>
+                                </div>
+                                <div class="text-center space-y-5">
+                                    <img [src]="imageSrc3" class="w-24 h-16 rounded-full mx-auto mb-2" />
+                                    <label class="font-bold">بطاقة ائتمان</label>
+                                </div>
+                                <div class="text-center space-y-5">
+                                    <img [src]="imageSrc4" class="w-24 h-16 rounded-full mx-auto mb-2" />
+                                    <label class="font-bold">تفاصيل الهوية
+                                    </label>
+                                </div>
+                            </div>
+        
+                            <form [formGroup]="businessinfo">
+                             
+                                <div class="container mx-auto">
+                                    <div class="flex flex-col">
+                                      
+            
+                                        <div>
+                                            <mat-form-field appearance="outline" class="w-full">
+                                                <mat-label *ngIf="countries">اختر دولة</mat-label>
+                                                <mat-select formControlName="businessCountry" name="country">
+                                                    <mat-option *ngFor="let country of countries" [value]="country.id">
+                                                        {{country.name}}</mat-option>
+            
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                  
+                                </div>
+            
+                          
+            
+                                <div *ngIf="businessinfo.get('businessCountry').value != ''">
+                                    <div class="container mx-auto mb-2">
+                                        <div class="flex flex-col">
+                                            
+                                            <div>
+                                                <mat-form-field appearance="outline" class="w-full">
+                                                    <mat-label>حدد نوع عملك</mat-label>
+                                                    <mat-select formControlName="businessType" name="business">
+                                                        <mat-option value="STATE">الأعمال المملوكة للدولة</mat-option>
+                                                        <mat-option value="PUBLIC">الأعمال المدرجة في البورصة</mat-option>
+                                                        <mat-option value="PRIVATE">الأعمال المملوكة للقطاع الخاص</mat-option>
+                                                        <mat-option value="CHARITY">صدقة</mat-option>
+                                                        <mat-option value="INDIVIDUAL">لا شيء ، أنا فرد</mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+            
+                                <div *ngIf="businessinfo.get('businessType').value != '' && businessinfo.get('businessType').value != 'INDIVIDUAL' ">
+                                    <div class="container mx-auto mb-2">
+                                        <div class="flex flex-col">
+                                            
+                                            <div>
+                                                <mat-form-field class="w-full" appearance="outline">
+                                                    <mat-label>الاسم التجاري </mat-label>
+                                                    <input formControlName="businessName" matInput #message 
+                                                        placeholder="الاسم التجاري">
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                             
+                                <div class="btn relative h-32 w-32">
+                                    <button (click)="business_Info()" class="rounded-full max-w-full w-200" color="primary"
+                                        mat-raised-button type="button" 
+                                        mat-stroked-button id="grey-button">موافق والمتابعة</button>
+                                </div>
+                            </form>
+        
+                        </div>
+                      
+                    </div>
+        
+        
+        
+        
+                </div>
+        
+            </div>
+        </div>
+        </div>
+        </div>
+

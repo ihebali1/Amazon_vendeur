@@ -1,0 +1,210 @@
+<div class="p-10 bg-white shadow-sm border border-gray-200 rounded-lg">
+  <div class="row">
+    <h2>
+      حالة المنتج:
+      <label *ngIf="productInfo.status == 'APPROVED'"> موافق عليه</label>
+      <label *ngIf="productInfo.status == 'REJECTED'"> مرفوض</label>
+      <label *ngIf="productInfo.status == 'PENDING'"> قيد المراجعة</label>
+
+    </h2>
+    <h4>
+      <label *ngIf="productInfo.status == 'REJECTED'">سبب الرفض : {{productInfo?.rejectReason}} </label>
+    </h4>
+    <div *ngIf="productInfo.isApproved == true && productInfo.status =='APPROVED'" >
+      <p>
+        <button (click)="updateProductActivation(false)" *ngIf="productInfo.isActive == true" color="accent" mat-raised-button
+          class="font-bold rounded float-left">
+          إيقاف المنتج
+        </button>
+        <button (click)="updateProductActivation(true)" *ngIf="productInfo.isActive == false" color="primary" mat-raised-button
+          class="font-bold rounded float-left">
+          تفعيل المنتج
+        </button>
+      </p>
+  
+  
+  
+  
+  
+    </div>
+  </div>
+
+
+  <mat-divider class="my-4"></mat-divider>
+
+  <form [formGroup]="vitalInfoForm" class="mt-4">
+    <div class="grid grid-cols-12 gap-4">
+      <div *ngIf="type == 'SIMPLE_LISTING'">
+        <label>معرف المنتج</label>
+      </div>
+      <div *ngIf="type == 'SIMPLE_LISTING'" class="col-span-11">
+        <div class="flex flex-row gap-4">
+
+          <mat-form-field class="w-full" appearance="outline">
+            <mat-label>المعرف</mat-label>
+            <input matInput readonly="true" *ngIf="productInfo.isApproved == true" formControlName="productId"
+              type="text" />
+            <input matInput formControlName="productId" *ngIf="productInfo.isApproved == false" type="text" />
+          </mat-form-field>
+
+          <mat-form-field class="w-full" appearance="outline">
+            <mat-label>نوع المعرف</mat-label>
+            <mat-select *ngIf="productInfo.isApproved == true" disabled formControlName="productIdType">
+              <mat-option value="GTIN"> GTIN </mat-option>
+              <mat-option value="EAN"> EAN </mat-option>
+              <mat-option value="GCID"> GCID </mat-option>
+              <mat-option value="ISBN"> ISBN </mat-option>
+              <mat-option value="UPC"> UPC </mat-option>
+              <mat-option value="ASIN"> ASIN </mat-option>
+            </mat-select>
+            <mat-select *ngIf="productInfo.isApproved == false" formControlName="productIdType">
+              <mat-option value="GTIN"> GTIN </mat-option>
+              <mat-option value="EAN"> EAN </mat-option>
+              <mat-option value="GCID"> GCID </mat-option>
+              <mat-option value="ISBN"> ISBN </mat-option>
+              <mat-option value="UPC"> UPC </mat-option>
+              <mat-option value="ASIN"> ASIN </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+        </div>
+      </div>
+      <div>
+        <label>تسمية المنتج *</label>
+      </div>
+      <div class="col-span-11">
+   
+
+          <mat-form-field class="w-full" appearance="outline">
+            <mat-label>بالإنجليزية</mat-label>
+            <input *ngIf="productInfo.isApproved == false" matInput formControlName="name" type="text" />
+            <input *ngIf="productInfo.isApproved == true" readonly matInput formControlName="name" type="text" />
+          </mat-form-field>
+
+          <mat-form-field class="w-full" appearance="outline">
+            <mat-label>بالعربية</mat-label>
+            <input *ngIf="productInfo.isApproved == true" readonly formControlName="arName" matInput type="text" />
+            <input *ngIf="productInfo.isApproved == false" formControlName="arName" matInput type="text" />
+          </mat-form-field>
+
+
+      </div>
+
+      <div>
+        <label>ماركة المنتج *</label>
+      </div>
+      <div class="col-span-11">
+        <div class="flex flex-row gap-4">
+          <mat-form-field class="w-full" appearance="outline">
+            <mat-label></mat-label>
+            <input *ngIf="productInfo.isApproved == true" readonly matInput formControlName="brand" type="text" />
+            <input *ngIf="productInfo.isApproved == false" matInput formControlName="brand" type="text" />
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div>
+        <label>مصنع المنتج *</label>
+      </div>
+      <div class="col-span-11">
+        <div class="flex flex-row gap-4">
+          <mat-form-field class="w-full" appearance="outline">
+            <mat-label></mat-label>
+            <input *ngIf="productInfo.isApproved == true" readonly formControlName="manufacturer" matInput
+              type="text" />
+            <input *ngIf="productInfo.isApproved == false" formControlName="manufacturer" matInput type="text" />
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div>
+        <label>رقم التصنيع *</label>
+      </div>
+      <div class="col-span-11">
+        <div class="flex flex-row gap-4">
+          <mat-form-field class="w-full" appearance="outline">
+            <mat-label></mat-label>
+            <input *ngIf="productInfo.isApproved == true" readonly formControlName="manufactureSerial" matInput
+              type="text" />
+
+            <input *ngIf="productInfo.isApproved == false" formControlName="manufactureSerial" matInput type="text" />
+
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div *ngIf="type == 'SIMPLE_LISTING'">
+        <label>حالة المنتج</label>
+      </div>
+      <div class="col-span-11" *ngIf="type == 'SIMPLE_LISTING'">
+        <div class="flex flex-row gap-4">
+          <mat-form-field class="w-full" appearance="outline">
+            <mat-label></mat-label>
+            <mat-select *ngIf="productInfo.isApproved == true" disabled formControlName="condition">
+              <mat-option value="USED_GOOD"> مستعمل - جيد </mat-option>
+              <mat-option value="USER_LIKE_NEW"> مستعملة - كالجديد </mat-option>
+              <mat-option value="NEW"> جديد </mat-option>
+              <mat-option value="USED_VER_GOOD"> مستعمل - جيد جدا </mat-option>
+              <mat-option value="USED_ACCEPTABLE"> مستخدم - مقبول </mat-option>
+            </mat-select>
+
+            <mat-select *ngIf="productInfo.isApproved == false" formControlName="condition">
+              <mat-option value="USED_GOOD"> مستعمل - جيد </mat-option>
+              <mat-option value="USER_LIKE_NEW"> مستعملة - كالجديد </mat-option>
+              <mat-option value="NEW"> جديد </mat-option>
+              <mat-option value="USED_VER_GOOD"> مستعمل - جيد جدا </mat-option>
+              <mat-option value="USED_ACCEPTABLE"> مستخدم - مقبول </mat-option>
+            </mat-select>
+
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <div *ngFor="let att of attributeList" class="grid grid-cols-7 gap-4">
+    <div>
+      <label>{{ att.attribute.arKey }} *</label>
+    </div>
+    <div class="col-span-11">
+      <div class="flex flex-row gap-4">
+        <mat-form-field *ngIf="att.attribute.type == 'SINGLE_CHOICE'" class="w-full" appearance="outline">
+          <mat-label></mat-label>
+          <input matInput type="text" *ngIf="productInfo.isApproved == false" [(ngModel)]="att.value" />
+          <input matInput type="text" *ngIf="productInfo.isApproved == true" readonly [(ngModel)]="att.value" />
+        </mat-form-field>
+        <mat-form-field *ngIf="att.attribute.type == 'MULTIPLE_CHOICES'" class="w-full" appearance="outline">
+          <mat-label></mat-label>
+          <mat-select [(ngModel)]="att.value" *ngIf="productInfo.isApproved == false">
+            <mat-option *ngFor="let choice of att.attribute.attributeChoices" [value]="choice.id">
+              {{ choice.value }}
+            </mat-option>
+          </mat-select>
+
+          <mat-select [(ngModel)]="att.value" *ngIf="productInfo.isApproved == true" disabled>
+            <mat-option *ngFor="let choice of att.attribute.attributeChoices" [value]="choice.id">
+              {{ choice.value }}
+            </mat-option>
+          </mat-select>
+
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+
+  <mat-divider class="my-2"></mat-divider>
+
+  <div class="basis-1/4">
+    <div class="flex flex-row gap-4">
+      <button (click)="updateVitalInfo()" color="primary" mat-raised-button class="font-bold rounded"
+        *ngIf="productInfo.isApproved == true" disabled>
+        تحديث
+      </button>
+
+      <button *ngIf="productInfo.isApproved == false" (click)="updateVitalInfo()" color="primary" mat-raised-button
+        class="font-bold rounded">
+        تحديث
+      </button>
+    </div>
+  </div>
+</div>

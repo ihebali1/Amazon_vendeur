@@ -1,0 +1,70 @@
+<div class="card p-10 bg-white shadow-sm border border-gray-200 rounded-lg">
+
+    <div class="px-gutter py-4 border-b">
+        <h2 class="title m-0">
+            صورة المنتج الأساسية
+        </h2>
+
+    </div>
+
+    <div class="grid grid-cols-4 gap-4">
+        <div *ngIf="productInfo.isApproved == false">
+            <img *ngIf="productInfo.primaryImage != null && image == null" (click)="fileInput.click()" [src]="server+ productInfo?.primaryImage.public_url " class="rounded w-400 h-400" gdGridAlign="center" />
+
+            <img *ngIf=" image != null" (click)="fileInput.click()" [src]="image " class="rounded w-400 h-400" gdGridAlign="center" />
+            <input hidden="true" type="file" multiple accept="image/png, image/jpeg, image/jpg" max="3" maxlength="3" class="d-none" (change)="onFileInput($event?.target?.files)" #fileInput />
+            <button (click)="updatePrimaryImage()" *ngIf="image" style="font-size: 20px;" class=" text-sm font-bold rounded">
+          تغيير صورة المنتج الأساسية
+
+        </button>
+            <input hidden="true" type="file" multiple accept="image/png, image/jpeg, image/jpg" max="3" maxlength="3" class="d-none" #fileInput />
+        </div>
+        <div *ngIf="productInfo.isApproved == true">
+            <img *ngIf="productInfo.primaryImage" [src]="server+ productInfo?.primaryImage.public_url " class="rounded w-400 h-400" gdGridAlign="center" />
+
+        
+        </div>
+    </div>
+
+    <div class="px-gutter py-4 border-b">
+        <h2 class="title m-0">صور المنتج</h2>
+    </div>
+
+    <div class="grid grid-cols-4 gap-4" *ngIf="productInfo.isApproved ==  false">
+        <div *ngFor="let image of productInfo.images">
+            <img (click)="one.click()" [src]="server+ image?.public_url" class="rounded w-400 h-400" gdGridAlign="center" />
+            <button (click)="removeImage(image.id)" style="font-size: 20px;" class=" text-sm font-bold rounded">-</button>
+        </div>
+        <div>
+            <img *ngIf="productInfo.images.length < 4 && singleImage != null && added == false" (click)="imageInput.click()" class="rounded w-400 h-400" gdGridAlign="center" [src]="singleImage" />
+
+            <img *ngIf="productInfo.images.length < 4 && singleImage != null && added == true" (click)="imageInput.click()" class="rounded w-400 h-400" gdGridAlign="center" src="assets/img/placeholder.png" />
+
+
+            <img *ngIf="productInfo.images.length < 4 && singleImage == null " (click)="imageInput.click()" class="rounded w-full" gdGridAlign="center" src="assets/img/placeholder.png" />
+
+            <input hidden="true" type="file" multiple accept="image/png, image/jpeg, image/jpg" max="5" maxlength="4" class="d-none" (change)="onImageInput($event?.target?.files)" #imageInput />
+
+        </div>
+    </div>
+
+
+    <div class="grid grid-cols-4 gap-4" *ngIf="productInfo.isApproved ==  true">
+        <div *ngFor="let image of productInfo.images">
+            <img  [src]="server+ image?.public_url" class="rounded w-400 h-400" gdGridAlign="center" />
+        
+        </div>
+        
+    </div>
+
+    <input hidden="true" type="file" multiple accept="image/png, image/jpeg, image/jpg" max="3" maxlength="3" class="d-none" #one />
+    <mat-divider class="my-2"></mat-divider>
+    <div class="basis-1/4">
+        <div class="flex flex-row gap-4">
+
+            <button (click)="addImage()" *ngIf="productInfo.isApproved ==  true"  disabled color="primary" color="primary" mat-raised-button class="font-bold rounded">تحديث</button>
+            <button (click)="addImage()" *ngIf="productInfo.isApproved ==  false"  color="primary" color="primary" mat-raised-button class="font-bold rounded">تحديث</button>
+        </div>
+    </div>
+
+</div>

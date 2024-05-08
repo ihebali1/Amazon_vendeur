@@ -1,0 +1,144 @@
+<div class="md:p-10">
+    <form [formGroup]="vitalInfoForm">
+        <div>
+            <div *ngIf="isWithVatiations == false">
+                <label class="font-bold">معرف المنتج</label>
+            </div>
+            <div *ngIf="isWithVatiations == false" class="col-span-6">
+             
+       
+                        <mat-form-field class="w-full" appearance="outline">
+                            <mat-label>المعرف</mat-label>
+                            <input matInput formControlName="productId" type="text" placeholder="567373893" (input)="onInputChange($event.target.value)">
+                        </mat-form-field>
+              
+                        <mat-form-field class="w-full" appearance="outline">
+                            <mat-label>نوع المعرف</mat-label>
+                            <mat-select formControlName="productIdType" (selectionChange)="onChange($event.value)">
+                                <mat-option value="GTIN">
+                                    GTIN
+                                </mat-option>
+                                <mat-option value="EAN">
+                                    EAN
+                                </mat-option>
+                                <mat-option value="GCID">
+                                    GCID
+                                </mat-option>
+                                <mat-option value="ISBN">
+                                    ISBN
+                                </mat-option>
+                                <mat-option value="UPC">
+                                    UPC
+                                </mat-option>
+                                <mat-option value="ASIN">
+                                    ASIN
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+     
+              
+            </div>
+            <div>
+                <label class="font-bold">تسمية المنتج *</label>
+            </div>
+            <div class="col-span-6">
+    
+          
+                        <mat-form-field class="w-full" appearance="outline">
+                            <mat-label>بالإنجليزية</mat-label>
+                            <input matInput formControlName="name" type="text" (input)="onInputChange($event.target.value)" placeholder="hair dryer ">
+                        </mat-form-field>
+                
+                        <mat-form-field class="w-full" appearance="outline">
+                            <mat-label>بالعربية</mat-label>
+                            <input formControlName="arName" matInput type="text" (input)="onInputChange($event.target.value)" placeholder="مجفف شعر">
+                        </mat-form-field>
+                 
+
+              
+            </div>
+
+            <div>
+                <label class="font-bold">ماركة المنتج *</label>
+            </div>
+            <div class="col-span-6">
+                <div class="flex flex-row gap-4">
+                    <mat-form-field class="w-full" appearance="outline">
+                        <mat-label></mat-label>
+                        <mat-select formControlName="customBrand" (selectionChange)="onChange($event.value)">
+                            
+                            <mat-option *ngFor="let brand of brands" value="{{brand.id}}">
+                                {{brand.name}}
+                       
+                            </mat-option>
+                            <mat-option  value="">
+                                علامة تجارية أخرى
+                       
+                            </mat-option>
+                           
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="flex flex-row gap-4">
+                    <mat-form-field class="w-full" appearance="outline">
+                        <mat-label></mat-label>
+                        <input style="display: none;" *ngIf="vitalInfoForm.getRawValue().customBrand != ''" readonly disabled matInput formControlName="brand" type="text" (input)="onInputChange($event.target.value)">
+                        <input  *ngIf="vitalInfoForm.getRawValue().customBrand == ''" matInput formControlName="brand" type="text" (input)="onInputChange($event.target.value)">
+                    </mat-form-field>
+                </div>
+            </div>
+            
+            
+
+            <div>
+                <label class="font-bold">مصنع المنتج *</label>
+            </div>
+            <div class="col-span-6">
+                <div class="flex flex-row gap-4">
+                    <mat-form-field class="w-full" appearance="outline">
+                        <mat-label></mat-label>
+                        <input formControlName="manufacturer" matInput type="text" (input)="onInputChange($event.target.value)">
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div>
+                <label class="font-bold">رقم التصنيع *</label>
+            </div>
+            <div class="col-span-6">
+                <div class="flex flex-row gap-4">
+                    <mat-form-field class="w-full" appearance="outline">
+                        <mat-label></mat-label>
+                        <input formControlName="manufactureSerial" matInput type="text" (input)="onInputChange($event.target.value)">
+                    </mat-form-field>
+                </div>
+            </div>
+
+
+
+        </div>
+
+    </form>
+    <div *ngFor="let att of attributeList" class="grid grid-cols-7 gap-4">
+        <div>
+            <label class="font-bold">{{att.attribute.arKey}} *</label>
+        </div>
+        <div class="col-span-6">
+            <div class="flex flex-row gap-4">
+                <mat-form-field *ngIf="att.attribute.type=='SINGLE_CHOICE'" class="w-full" appearance="outline">
+                    <mat-label></mat-label>
+                    <input matInput type="text" (input)="onInputChange($event.target.value)" [(ngModel)]="att.value">
+                </mat-form-field>
+                <mat-form-field *ngIf="att.attribute.type=='MULTIPLE_CHOICES'" class="w-full" appearance="outline">
+                    <mat-label></mat-label>
+                    <mat-select [(ngModel)]="att.value" (selectionChange)="onChange($event.value)">
+                        <mat-option *ngFor="let choice of att.attribute.attributeChoices" [value]="choice.id">
+                            {{choice.value}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+
+</div>
